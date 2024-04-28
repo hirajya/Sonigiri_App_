@@ -28,51 +28,43 @@ public class mainController {
     }
 
     public void handleOrderButton() throws IOException{
-        order_btn.setOnAction(e -> {
-            System.out.println("Order Button Clicked");
-            try {
-                loadView("/view/order.fxml");
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-        });
+        System.out.println("Order Button Clicked");
+        try {
+            loadView("/view/order.fxml");
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
     }
 
     public void handleAnalyticsButton() throws IOException{
-        analytics_btn.setOnAction(e -> {
-            System.out.println("Analytics Button Clicked");
-            try {
-                loadView("/view/analytics.fxml");
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-        });
+        System.out.println("Analytics Button Clicked");
+        try {
+            loadView("/view/analytics.fxml");
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
     }
 
     public void handleDoneOrdersButton() throws IOException{
-        done_orders_btn.setOnAction(e -> {
-            System.out.println("Done Orders Button Clicked");
-            try {
-                loadView("/view/done_orders.fxml");
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-        });
+        System.out.println("Done Orders Button Clicked");
+        try {
+            loadView("/view/done_orders.fxml");
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
     }
 
     public void handlePendingOrdersButton() throws IOException{
-        pending_orders_btn.setOnAction(e -> {
-            System.out.println("Pending Orders Button Clicked");
-            try {
-                loadView("/view/pending_orders.fxml");
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-        });
+        System.out.println("Pending Orders Button Clicked");
+        try {
+            loadView("/view/pending_orders.fxml");
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
     }
 
     private void loadView(String fxmlFile) throws IOException {
