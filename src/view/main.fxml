@@ -4,11 +4,11 @@
 <?import javafx.scene.layout.BorderPane?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <AnchorPane prefHeight="507.0" prefWidth="131.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="776.0" prefWidth="166.0" BorderPane.alignment="CENTER" />
    </left>
    <center>
-      <AnchorPane prefHeight="520.0" prefWidth="620.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="561.0" prefWidth="612.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

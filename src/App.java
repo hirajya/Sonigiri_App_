@@ -24,7 +24,7 @@ public class App extends Application{
 
             // Image icon = new Image("vectorImages/movieHubLogo.png");
             // stage.getIcons().add(icon);
-            stage.setTitle("MovieHub");
+            stage.setTitle("Sonigirapp");
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
