@@ -1,22 +1,43 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "java",
-            "name": "Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "App",
-            "projectName": "Sonigiri_App__195a521d",
-            "vmArgs": "--module-path C:/javafx-sdk-20.0.1/lib --add-modules javafx.controls,javafx.media --add-modules=javafx.controls,javafx.fxml"
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "ordered_items",
+      "request": "launch",
+      "mainClass": "model.ordered_items",
+      "projectName": "Sonigiri_App__195a521d"
+    },
+    {
+      "type": "java",
+      "name": "orderM",
+      "request": "launch",
+      "mainClass": "model.orderM",
+      "projectName": "Sonigiri_App__195a521d"
+    },
+    {
+      "type": "java",
+      "name": "order",
+      "request": "launch",
+      "mainClass": "model.order",
+      "projectName": "Sonigiri_App__195a521d"
+    },
+    {
+      "type": "java",
+      "name": "Current File",
+      "request": "launch",
+      "mainClass": "${file}"
+    },
+    {
+      "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "App",
+      "projectName": "Sonigiri_App__195a521d",
+      "vmArgs": "--module-path C:/javafx-sdk-20.0.1/lib --add-modules javafx.controls,javafx.media --add-modules=javafx.controls,javafx.fxml"
+    }
+  ]
 }

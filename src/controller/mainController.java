@@ -24,6 +24,7 @@ public class mainController {
 
     @FXML
     public void initialize() throws IOException {
+        mainPane.setUserData(this);
         loadView("/view/order.fxml");
     }
 
@@ -67,7 +68,19 @@ public class mainController {
         }
     }
 
-    private void loadView(String fxmlFile) throws IOException {
+    public void handleOrderOutButton() throws IOException{
+        System.out.println("Pending Orders Button Clicked");
+        try {
+            loadView("/view/confirm_receipt.fxml");
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+    }
+
+
+
+    void loadView(String fxmlFile) throws IOException {
     AnchorPane newView = FXMLLoader.load(getClass().getResource(fxmlFile));
     ((AnchorPane) mainPane.getCenter()).getChildren().clear();  // Clear existing content
     ((AnchorPane) mainPane.getCenter()).getChildren().add(newView);  // Add new view to center AnchorPane
