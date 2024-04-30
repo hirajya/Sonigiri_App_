@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "customer_infoController",
+      "request": "launch",
+      "mainClass": "controller.order.customer_infoController",
+      "projectName": "Sonigiri_App__195a521d"
+    },
+    {
+      "type": "java",
       "name": "ordered_items",
       "request": "launch",
       "mainClass": "model.ordered_items",
