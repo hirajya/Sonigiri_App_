@@ -2,15 +2,22 @@ package controller;
 
 import java.io.IOError;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class mainController {
     
+    @FXML
+    Text dateTextMain, timeTextMain;
 
     @FXML
     Button order_btn, analytics_btn, earnings_btn;
@@ -21,11 +28,16 @@ public class mainController {
     @FXML
     AnchorPane subPane;
 
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+
 
     @FXML
     public void initialize() throws IOException {
         mainPane.setUserData(this);
         loadView("/view/orders/table_orders.fxml");
+        // updateTime();
+
     }
 
     public void handleOrderButton() throws IOException{
@@ -74,6 +86,22 @@ public class mainController {
     AnchorPane newView = FXMLLoader.load(getClass().getResource(fxmlFile));
     ((AnchorPane) mainPane.getCenter()).getChildren().clear();  // Clear existing content
     ((AnchorPane) mainPane.getCenter()).getChildren().add(newView);  // Add new view to center AnchorPane
-}
+    }
+
+    // private void updateTime() {
+    //     LocalDateTime now = LocalDateTime.now();
+    //     dateTextMain.setText(now.format(dateTimeFormatter));
+    //     timeTextMain.setText(now.format(DateTimeFormatter.ofPattern("HH:mm")));
+
+    //     // Schedule an update for every second
+    //     new java.util.Timer().schedule(
+    //             new java.util.TimerTask() {
+    //                 @Override
+    //                 public void run() {
+    //                     updateTime();
+    //                 }
+    //             },
+    //             (long) Duration.ZERO.toMillis());
+    // }
 
 }

@@ -11,9 +11,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.payment_infoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="693.0" style="-fx-background-color: #F1F1F1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.payment_infoController">
    <children>
-      <Pane layoutX="487.0" layoutY="23.0" prefHeight="425.0" prefWidth="184.0">
+      <Pane fx:id="orderSumPane" layoutX="487.0" layoutY="23.0" prefHeight="425.0" prefWidth="184.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <Text layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Summary">
                <font>
@@ -109,7 +109,7 @@
          </font>
       </Text>
       <Text layoutX="214.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Info" />
-      <Pane layoutX="22.0" layoutY="62.0" prefHeight="386.0" prefWidth="449.0">
+      <Pane fx:id="paymentInfoPane" layoutX="22.0" layoutY="62.0" prefHeight="386.0" prefWidth="449.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <Text layoutX="27.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Information">
                <font>
@@ -126,7 +126,7 @@
                   <ToggleGroup fx:id="paymentMethodGroup" />
                </toggleGroup></RadioButton>
             <RadioButton fx:id="GCash_RButton" layoutX="27.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleGCashRadioButton" text="GCash" toggleGroup="$paymentMethodGroup" />
-            <Pane fx:id="GCashPane" layoutX="27.0" layoutY="150.0" prefHeight="200.0" prefWidth="388.0" visible="false">
+            <Pane fx:id="GCashPane" layoutX="27.0" layoutY="150.0" prefHeight="200.0" prefWidth="388.0" style="-fx-background-color: #FFFFFF;" visible="false">
                <children>
                   <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GCash Information">
                      <font>
@@ -147,7 +147,7 @@
                   <TextField layoutX="15.0" layoutY="133.0" prefHeight="25.0" prefWidth="269.0" />
                </children>
             </Pane>
-            <Pane fx:id="CashPane" layoutX="27.0" layoutY="150.0" prefHeight="200.0" prefWidth="388.0" visible="false">
+            <Pane fx:id="CashPane" layoutX="27.0" layoutY="150.0" prefHeight="200.0" prefWidth="388.0" style="-fx-background-color: #FFFFFF;" visible="false">
                <children>
                   <Text layoutX="15.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cash ">
                      <font>
