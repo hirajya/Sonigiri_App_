@@ -4,6 +4,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -120,45 +121,48 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <RadioButton layoutX="27.0" layoutY="73.0" mnemonicParsing="false" text="Cash" />
-            <RadioButton layoutX="27.0" layoutY="97.0" mnemonicParsing="false" text="GCash" />
-            <AnchorPane fx:id="GCashPane" layoutX="27.0" layoutY="137.0" prefHeight="225.0" prefWidth="388.0" visible="false">
+            <RadioButton fx:id="Cash_RButton" layoutX="27.0" layoutY="73.0" mnemonicParsing="false" onAction="#handleCashRadioButton" text="Cash">
+               <toggleGroup>
+                  <ToggleGroup fx:id="paymentMethodGroup" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="GCash_RButton" layoutX="27.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleGCashRadioButton" text="GCash" toggleGroup="$paymentMethodGroup" />
+            <Pane fx:id="GCashPane" layoutX="27.0" layoutY="150.0" prefHeight="200.0" prefWidth="388.0" visible="false">
                <children>
-                  <Text layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GCash Information">
+                  <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GCash Information">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Text>
-                  <Text layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Number">
+                  <Text layoutX="14.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Number">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Text layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Method">
+                  <Text layoutX="14.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Method">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutY="53.0" prefHeight="25.0" prefWidth="269.0" />
-                  <TextField layoutX="1.0" layoutY="122.0" prefHeight="25.0" prefWidth="269.0" />
+                  <TextField layoutX="14.0" layoutY="64.0" prefHeight="25.0" prefWidth="269.0" />
+                  <TextField layoutX="15.0" layoutY="133.0" prefHeight="25.0" prefWidth="269.0" />
                </children>
-            </AnchorPane>
-            <AnchorPane fx:id="CashPane" layoutX="27.0" layoutY="137.0" prefHeight="225.0" prefWidth="388.0" visible="false">
+            </Pane>
+            <Pane fx:id="CashPane" layoutX="27.0" layoutY="150.0" prefHeight="200.0" prefWidth="388.0" visible="false">
                <children>
-                  <Text fx:id="CashPane" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cash ">
+                  <Text layoutX="15.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cash ">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Text>
-                  <Text layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Paid">
+                  <Text layoutX="15.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Paid">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutY="53.0" prefHeight="25.0" prefWidth="269.0" />
-                  <Button layoutX="290.0" layoutY="53.0" mnemonicParsing="false" text="Calculate" />
+                  <TextField layoutX="15.0" layoutY="65.0" prefHeight="25.0" prefWidth="269.0" />
+                  <Button layoutX="305.0" layoutY="65.0" mnemonicParsing="false" text="Calculate" />
                </children>
-            </AnchorPane>
+            </Pane>
          </children>
       </Pane>
       <Text layoutX="296.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="//">

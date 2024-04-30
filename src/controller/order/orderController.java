@@ -3,6 +3,7 @@ package controller.order;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -14,6 +15,11 @@ public class orderController {
 
     @FXML
     Button order_out_btn;
+
+    @FXML
+    RadioButton tnmyo_RButton, blgi_RButton, chcknadb_RButton;
+
+    
 
     
 
