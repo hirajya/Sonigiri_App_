@@ -13,7 +13,7 @@ public class mainController {
     
 
     @FXML
-    Button order_btn, analytics_btn, pending_orders_btn, done_orders_btn;
+    Button order_btn, analytics_btn, earnings_btn;
 
     @FXML
     BorderPane mainPane;
@@ -25,13 +25,13 @@ public class mainController {
     @FXML
     public void initialize() throws IOException {
         mainPane.setUserData(this);
-        loadView("/view/order.fxml");
+        loadView("/view/orders/table_orders.fxml");
     }
 
     public void handleOrderButton() throws IOException{
         System.out.println("Order Button Clicked");
         try {
-            loadView("/view/order.fxml");
+            loadView("/view/orders/table_orders.fxml");
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -41,27 +41,17 @@ public class mainController {
     public void handleAnalyticsButton() throws IOException{
         System.out.println("Analytics Button Clicked");
         try {
-            loadView("/view/analytics.fxml");
+            loadView("/view/dashboard/analytics.fxml");
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
     }
 
-    public void handleDoneOrdersButton() throws IOException{
+    public void handleEarningsButton() throws IOException{
         System.out.println("Done Orders Button Clicked");
         try {
-            loadView("/view/done_orders.fxml");
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-    }
-
-    public void handlePendingOrdersButton() throws IOException{
-        System.out.println("Pending Orders Button Clicked");
-        try {
-            loadView("/view/pending_orders.fxml");
+            loadView("/view/earnings/earnings.fxml");
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -71,7 +61,7 @@ public class mainController {
     public void handleOrderOutButton() throws IOException{
         System.out.println("Pending Orders Button Clicked");
         try {
-            loadView("/view/confirm_receipt.fxml");
+            loadView("/view/orders/confirm_receipt.fxml");
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -80,7 +70,7 @@ public class mainController {
 
 
 
-    void loadView(String fxmlFile) throws IOException {
+    public void loadView(String fxmlFile) throws IOException {
     AnchorPane newView = FXMLLoader.load(getClass().getResource(fxmlFile));
     ((AnchorPane) mainPane.getCenter()).getChildren().clear();  // Clear existing content
     ((AnchorPane) mainPane.getCenter()).getChildren().add(newView);  // Add new view to center AnchorPane

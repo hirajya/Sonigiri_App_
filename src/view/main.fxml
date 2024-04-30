@@ -7,14 +7,13 @@
 
 <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainController">
    <left>
-      <AnchorPane prefHeight="474.0" prefWidth="136.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="493.0" prefWidth="174.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="472.0" prefWidth="173.0">
+            <VBox layoutY="186.0" prefHeight="137.0" prefWidth="175.0">
                <children>
-                  <Button fx:id="order_btn" mnemonicParsing="false" onAction="#handleOrderButton" prefHeight="118.0" prefWidth="173.0" text="Order" />
-                  <Button fx:id="pending_orders_btn" mnemonicParsing="false" onAction="#handlePendingOrdersButton" prefHeight="118.0" prefWidth="173.0" text="Pending" />
-                  <Button fx:id="done_orders_btn" mnemonicParsing="false" onAction="#handleDoneOrdersButton" prefHeight="118.0" prefWidth="173.0" text="Done" />
-                  <Button fx:id="analytics_btn" mnemonicParsing="false" onAction="#handleAnalyticsButton" prefHeight="118.0" prefWidth="173.0" text="Analytics" />
+                  <Button fx:id="analytics_btn" mnemonicParsing="false" onAction="#handleAnalyticsButton" prefHeight="32.0" prefWidth="173.0" text="Dashboard" />
+                  <Button fx:id="order_btn" mnemonicParsing="false" onAction="#handleOrderButton" prefHeight="35.0" prefWidth="173.0" text="Orders" />
+                  <Button fx:id="earnings_btn" mnemonicParsing="false" onAction="#handleEarningsButton" prefHeight="36.0" prefWidth="173.0" text="Earnings" />
                </children>
             </VBox>
          </children>
@@ -24,6 +23,6 @@
       <AnchorPane fx:id="subPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="693.0" BorderPane.alignment="CENTER" />
    </center>
    <top>
-      <AnchorPane prefHeight="67.0" prefWidth="866.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="48.0" prefWidth="866.0" BorderPane.alignment="CENTER" />
    </top>
 </BorderPane>
