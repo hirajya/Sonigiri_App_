@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 public class customer_infoController {
     
     @FXML
-    Button go_paymentInfo_btn, pow;
+    Button go_paymentInfo_btn;
 
     @FXML
     public void initialize() {
@@ -27,10 +27,6 @@ public class customer_infoController {
             e.printStackTrace();
         }
         System.out.println("tangina");
-    }
-
-    public void powtry() {
-        System.out.println("pow");
     }
 
     public static void main(String[] args) {

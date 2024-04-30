@@ -132,6 +132,5 @@
             <TextArea layoutX="28.0" layoutY="170.0" prefHeight="67.0" prefWidth="320.0" />
          </children>
       </Pane>
-      <Button fx:id="pow" layoutX="454.0" layoutY="436.0" mnemonicParsing="false" onAction="#powtry" text="Button" />
    </children>
 </AnchorPane>
