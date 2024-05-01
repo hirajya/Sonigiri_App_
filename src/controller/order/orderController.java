@@ -222,6 +222,20 @@ public class orderController {
     public void handleUpdateButtonGo() throws IOException {
         ordered_items order = (ordered_items) updatePane.getUserData();
         int qty = Integer.parseInt(UQtyCntText.getText());
+        if (UTnm_Rbutton.isSelected()) {
+            order.setProduct_id(1);
+        } else if (Ublg_Rbutton.isSelected()) {
+            order.setProduct_id(2);
+        } else if (UChck_Rbutton.isSelected()) {
+            order.setProduct_id(3);
+        }
+
+        if (USpicy_Rbutton.isSelected()) {
+            order.setSpicy("Spicy");
+        } else if (UNSpicy_Rbutton.isSelected()) {
+            order.setSpicy("Not Spicy");
+        }
+
         order.setQuantity(qty);
         updateQtyPresent();
         ordered_items.printOrderedItems(orders);
