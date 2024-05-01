@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="693.0" style="-fx-background-color: #F1F1F1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.orderController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="740.0" style="-fx-background-color: #F1F1F1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.orderController">
    <children>
       <Pane fx:id="orderPane" layoutX="22.0" layoutY="62.0" prefHeight="386.0" prefWidth="449.0" style="-fx-background-color: #FFFFFF;">
          <children>
@@ -26,14 +26,15 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></RadioButton>
-            <RadioButton fx:id="chcknadb_RButton" layoutX="27.0" layoutY="165.0" mnemonicParsing="false" text="Chicken Adobo" toggleGroup="$foodChoices">
+            <RadioButton fx:id="chcknadb_RButton" layoutX="28.0" layoutY="165.0" mnemonicParsing="false" text="Chicken Adobo" toggleGroup="$foodChoices">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></RadioButton>
             <Text layoutX="27.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Order">
                <font>
                   <Font name="System Bold" size="16.0" />
-               </font></Text>
+               </font>
+            </Text>
             <Text layoutX="27.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flavor">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -79,7 +80,7 @@
             <Button fx:id="qty_minus_btn" layoutX="249.0" layoutY="249.0" mnemonicParsing="false" onAction="#qtyMinus" prefHeight="25.0" prefWidth="29.0" text="-" />
          </children>
       </Pane>
-      <Pane fx:id="orderSumPane" layoutX="487.0" layoutY="23.0" prefHeight="425.0" prefWidth="184.0" style="-fx-background-color: #FFFFFF;">
+      <Pane fx:id="orderSumPane" layoutX="487.0" layoutY="23.0" prefHeight="425.0" prefWidth="221.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <Button fx:id="order_out_btn" layoutX="119.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleConfirmOrderButtonMet" prefHeight="24.0" prefWidth="65.0" text="Next" />
             <Text layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Summary">
@@ -102,7 +103,7 @@
                   <Font size="11.0" />
                </font>
             </Text>
-            <TextArea layoutX="12.0" layoutY="246.0" prefHeight="50.0" prefWidth="161.0" />
+            <TextArea layoutX="12.0" layoutY="246.0" prefHeight="50.0" prefWidth="192.0" />
             <Text layoutX="10.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Note">
                <font>
                   <Font size="11.0" />
@@ -128,27 +129,27 @@
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text fx:id="numOniText" layoutX="124.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
+            <Text fx:id="numOniText" layoutX="160.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text fx:id="totalAmountText" layoutX="124.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
+            <Text fx:id="totalAmountText" layoutX="160.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="124.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
+            <Text layoutX="160.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="124.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
+            <Text layoutX="160.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="124.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
+            <Text layoutX="160.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
                <font>
                   <Font size="11.0" />
                </font>
@@ -158,9 +159,9 @@
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <ScrollPane layoutX="15.0" layoutY="106.0" prefHeight="99.0" prefWidth="161.0">
+            <ScrollPane layoutX="15.0" layoutY="106.0" prefHeight="99.0" prefWidth="192.0">
                <content>
-                  <VBox fx:id="orderCard" prefHeight="99.0" prefWidth="146.0" style="-fx-background-color: #FFFFFF;" />
+                  <VBox fx:id="orderCard" prefHeight="99.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;" />
                </content>
             </ScrollPane>
             <Text fx:id="orderNumText" layoutX="66.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="......">
@@ -182,5 +183,77 @@
             <Font size="18.0" />
          </font>
       </Text>
+      <Pane fx:id="updatePane" layoutX="22.0" layoutY="62.0" prefHeight="386.0" prefWidth="449.0" style="-fx-background-color: #FFFFFF;" visible="false">
+         <children>
+            <Text layoutX="27.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Order">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Text>
+            <Text layoutX="27.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flavor">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <RadioButton fx:id="UTnm_Rbutton" layoutX="28.0" layoutY="75.0" mnemonicParsing="false" text="Tuna-mayo">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="updateFoodChoices" />
+               </toggleGroup>
+            </RadioButton>
+            <Text layoutX="50.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delightful blend of savory tuna, crunchy cabbage &amp; creamy mayonnaise.">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <RadioButton fx:id="Ublg_Rbutton" layoutX="28.0" layoutY="120.0" mnemonicParsing="false" text="Bulgogi" toggleGroup="$updateFoodChoices">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </RadioButton>
+            <Text layoutX="50.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Symphony of sweet, Korean savory flavors on tender beef slices">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <RadioButton fx:id="UChck_Rbutton" layoutX="28.0" layoutY="165.0" mnemonicParsing="false" text="Chicken Adobo" toggleGroup="$updateFoodChoices">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </RadioButton>
+            <Text layoutX="50.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Classifc comforting Filipino flavors on tender chicken">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
+            <Text layoutX="27.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spicy?">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <RadioButton fx:id="USpicy_Rbutton" layoutX="28.0" layoutY="250.0" mnemonicParsing="false" text="Yes">
+               <toggleGroup>
+                  <ToggleGroup fx:id="updateSpicyChoices" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="UNSpicy_Rbutton" layoutX="134.0" layoutY="250.0" mnemonicParsing="false" text="No" toggleGroup="$updateSpicyChoices" />
+            <Text layoutX="235.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <Button fx:id="UQtyA" layoutX="311.0" layoutY="249.0" mnemonicParsing="false" onAction="#updateQtyPlus" prefHeight="25.0" prefWidth="29.0" text="+" />
+            <Text fx:id="UQtyCntText" layoutX="290.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <Button fx:id="UQtyM" layoutX="249.0" layoutY="249.0" mnemonicParsing="false" onAction="#updateQtyMinus" prefHeight="25.0" prefWidth="29.0" text="-" />
+            <Button fx:id="updateButtonGo" layoutX="24.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleUpdateButtonGo" prefHeight="25.0" prefWidth="139.0" text="Update" />
+            <Button fx:id="updateDeleteButtonGo" layoutX="177.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleUpdateDeleteButtonGo" prefHeight="25.0" prefWidth="139.0" text="Delete" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

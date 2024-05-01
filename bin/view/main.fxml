@@ -11,13 +11,13 @@
 
 <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainController">
    <left>
-      <AnchorPane prefHeight="493.0" prefWidth="174.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="493.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutY="186.0" prefHeight="137.0" prefWidth="175.0">
+            <VBox layoutY="186.0" prefHeight="137.0" prefWidth="131.0">
                <children>
-                  <Button fx:id="analytics_btn" mnemonicParsing="false" onAction="#handleAnalyticsButton" prefHeight="32.0" prefWidth="173.0" text="Dashboard" />
-                  <Button fx:id="order_btn" mnemonicParsing="false" onAction="#handleOrderButton" prefHeight="35.0" prefWidth="173.0" text="Orders" />
-                  <Button fx:id="earnings_btn" mnemonicParsing="false" onAction="#handleEarningsButton" prefHeight="36.0" prefWidth="173.0" text="Earnings" />
+                  <Button fx:id="analytics_btn" mnemonicParsing="false" onAction="#handleAnalyticsButton" prefHeight="32.0" prefWidth="128.0" text="Dashboard" />
+                  <Button fx:id="order_btn" mnemonicParsing="false" onAction="#handleOrderButton" prefHeight="35.0" prefWidth="128.0" text="Orders" />
+                  <Button fx:id="earnings_btn" mnemonicParsing="false" onAction="#handleEarningsButton" prefHeight="36.0" prefWidth="128.0" text="Earnings" />
                </children>
             </VBox>
             <Text fx:id="dateTextMain" layoutX="26.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">

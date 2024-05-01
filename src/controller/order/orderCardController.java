@@ -28,4 +28,10 @@ public class orderCardController {
         totalPriceText.setText(String.valueOf(ordered_items.findProductPriceSimple(order_sample.getProduct_id()) * order_sample.getQuantity()) + "0 PHP");
 
     }
+
+    public void updateData(ordered_items updatedOrder) throws SQLException {
+        setData(updatedOrder);
+    }
+
+    
 }

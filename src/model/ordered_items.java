@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.sql.ResultSet;
 
 public class ordered_items {
@@ -268,7 +269,19 @@ public class ordered_items {
     
         return productName;
     }
-    
+
+    public static void printOrderedItems(ArrayList<ordered_items> items) {
+        System.out.println("==========START OF ORDERED ITEMS==========");
+        for (ordered_items item : items) {
+            System.out.println("Order Number: " + item.getOrder_NumOrder());
+            System.out.println("Product ID: " + item.getProduct_id());
+            System.out.println("Is Spicy: " + item.isSpicy());
+            System.out.println("Quantity: " + item.getQuantity());
+            System.out.println("Price: " + item.getPrice());
+            System.out.println("---------------------------------------");
+        }
+        System.out.println("==========END OF ORDERED ITEMS==========");
+    }
 
     public static void main(String[] args) throws ClassNotFoundException {
         ordered_items orderItem = new ordered_items(1, 1, "false", 2);
