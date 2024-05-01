@@ -31,7 +31,6 @@ public class customer_infoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("tangina");
     }
 
     public void noSideRectangles() {

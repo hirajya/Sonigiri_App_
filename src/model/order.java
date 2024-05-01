@@ -149,11 +149,82 @@ public class order {
 
     public static LocalDate getCurrentDate() {
         return LocalDate.now();
-      }
+    }
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static String getOrderNumCount() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+    
+        try {
+            // Replace with your XAMPP connection details
+            String url = "jdbc:mysql://localhost:3306/sonigiri_database";
+            String username = "root";
+            String password = "";
+    
+            // Connect to the database
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(url, username, password);
+            System.err.println("Connected to database.");
+    
+            // Create a prepared statement to insert data
+            String sql = "SELECT COUNT(order_NumOrder) FROM order_table";
+            preparedStatement = connection.prepareStatement(sql);
+    
+            // Execute the query and get the result set
+            resultSet = preparedStatement.executeQuery();
+    
+            if (resultSet.next()) {
+                int orderNumCount = resultSet.getInt("COUNT(order_NumOrder)");
+                System.out.println("Order count: " + orderNumCount);
+                // Return the count as a String directly within the if block
+                return String.valueOf(orderNumCount);
+            } else {
+                System.out.println("No orders found");
+                // If no orders found, return "0" or an appropriate default value
+                return "0";
+            }
+    
+        } catch (SQLException e) {
+            System.out.println("Error connecting to database or adding order: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error loading MySQL driver: " + e.getMessage());
+        } finally {
+            // Close resources (connection, prepared statement, and result set)
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    System.out.println("Error closing result set: " + e.getMessage());
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    System.out.println("Error closing prepared statement: " + e.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("Error closing connection: " + e.getMessage());
+                }
+            }
+            
+        }
+        return null;
+    
+        // This line is unreachable because a return statement is already inside the try block
+        // return String.valueOf(resultSet.getInt("COUNT(order_NumOrder)")); 
+    }
+    
+
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
         order order1 = new order(1, "John Doe",  "Cash", 100, 50,"Pending");
         addOrder(order1);
+        System.out.println(getOrderNumCount());    
         
     }
       
