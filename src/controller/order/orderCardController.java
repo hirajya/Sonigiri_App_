@@ -17,7 +17,7 @@ public class orderCardController {
     }
 
     public void setData(ordered_items order_sample) throws SQLException {
-        if (order_sample.isSpicy().equals("Yes")) {
+        if (order_sample.isSpicy().equals("Spicy")) {
             ifSpicyText.setText("Spicy");
         } else {
             ifSpicyText.setText("");
