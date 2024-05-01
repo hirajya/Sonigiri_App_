@@ -24,8 +24,8 @@ public class orderCardController {
         }
         
         productNameText.setText(ordered_items.getProduct_name(order_sample.getProduct_id()));
-        qtyText.setText(String.valueOf(order_sample.getQuantity()));
-        totalPriceText.setText(String.valueOf(ordered_items.findProductPriceSimple(order_sample.getProduct_id()) * order_sample.getQuantity()) + "PHP");
+        qtyText.setText(String.valueOf(order_sample.getQuantity()) + "x");
+        totalPriceText.setText(String.valueOf(ordered_items.findProductPriceSimple(order_sample.getProduct_id()) * order_sample.getQuantity()) + "0 PHP");
 
     }
 }

@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -20,6 +21,9 @@ import controller.mainController;
 import java.util.ArrayList;
 
 public class orderController {
+
+    @FXML
+    Text orderNumText, numOniText, totalAmountText;
 
     @FXML
     VBox orderCard;
@@ -44,13 +48,36 @@ public class orderController {
     static String orderSelected;
     static String isSpicySelected;
     static int product_idSelected;
-    static int orderNumCurrent = Integer.parseInt(order.getOrderNumCount()) + 1; 
+    static int orderNumCurrent = Integer.parseInt(order.getOrderNumCount()) + 1;
+    static double totalAmount = 0.0;
+    static int numberOfOnigiri = 0; 
 
     @FXML
     public void initialize() {
         orders.clear();
         noSideRectangles();
+        setOrderNumText();
         
+    }
+
+    public void setOrderNumText() {
+        orderNumText.setText("Order #" + orderNumCurrent);
+    }
+
+    public void setNumOniText() {
+        numberOfOnigiri = 0;
+        for (ordered_items order : orders) {
+            numberOfOnigiri += order.getQuantity();
+        }
+        numOniText.setText(String.valueOf(numberOfOnigiri));
+    }
+
+    public void setTotalAmountText() throws SQLException {
+        totalAmount = 0.0;
+        for (ordered_items order : orders) {
+            totalAmount += ordered_items.findProductPriceSimple(order.getProduct_id()) * order.getQuantity();
+        }
+        totalAmountText.setText(totalAmount + "0 PHP");
     }
 
     public void selectFlavor() {
@@ -93,18 +120,31 @@ public class orderController {
         Pane containerContent = loader.load(); // Load the container FXML
         orderCardController oCardController = loader.getController(); // Assign controller to variable
         oCardController.setData(orderItem);
+
+        // containerContent.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+        //     try {
+        //         // When the order card is clicked, print the total amount
+        //         System.out.println("Total Amount: " + totalAmount);
+        //     } catch (Exception e) {
+        //         e.printStackTrace();
+        //     }
+        // });
+
         orderCard.getChildren().add(containerContent); // Add the container to the VBox
     }
     
 
-    public void handleAddToCartButtonMet() {
+    public void handleAddToCartButtonMet() throws SQLException {
         selectFlavor();
         selectIsSpicy();
         int qty = Integer.parseInt(qtyText.getText());
         ordered_items order = new ordered_items(orderNumCurrent ,product_idSelected, isSpicySelected, qty);
         orders.add(order);
+        
         try {
             addOrderCard(order);
+            setNumOniText();
+            setTotalAmountText();
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
