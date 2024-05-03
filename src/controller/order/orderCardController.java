@@ -13,7 +13,6 @@ public class orderCardController {
     Text ifSpicyText, productNameText, qtyText, totalPriceText;
 
     public void initialize() {
-
     }
 
     public void setData(ordered_items order_sample) throws SQLException {

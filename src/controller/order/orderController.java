@@ -36,7 +36,7 @@ public class orderController {
     ScrollPane orderScrollPane;
 
     @FXML
-    Button order_out_btn, add_order_btn, qty_plus_btn, qty_minus_btn, UQtyM, UQtyA, updateButtonGo, updateDeleteButtonGo;
+    Button backButton, order_out_btn, add_order_btn, qty_plus_btn, qty_minus_btn, UQtyM, UQtyA, updateButtonGo, updateDeleteButtonGo;
 
     @FXML
     RadioButton tnmyo_RButton, blgi_RButton, chcknadb_RButton, spicyYes_RButton, spicyNo_RButton, UTnm_Rbutton, Ublg_Rbutton, UChck_Rbutton, UNSpicy_Rbutton, USpicy_Rbutton;
@@ -46,6 +46,8 @@ public class orderController {
 
     @FXML
     Pane orderPane, orderSumPane;
+
+    private mainController mainController;
 
     
     static ArrayList<ordered_items> orders = new ArrayList<ordered_items>();
@@ -57,11 +59,21 @@ public class orderController {
     static int numberOfOnigiri = 0; 
 
     @FXML
-    public void initialize() {
-        orders.clear();
+    public void initialize() throws IOException {
         noSideRectangles();
         setOrderNumText();
+        try {
+            refreshTable(); // Call this method to populate the orderCard VBox with the updated data
+            setNumOniText();
+            setTotalAmountText();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         
+    }
+
+    public void setMainController(mainController mainController) {
+        this.mainController = mainController;
     }
 
     public void setOrderNumText() {
@@ -278,10 +290,19 @@ public class orderController {
         }
         updatePane.setVisible(false);
     }
+
+    public void refreshTable() throws SQLException, IOException {
+        for (ordered_items orderItem : orders) {
+            addOrderCard(orderItem);
+        }
+        setNumOniText();
+        setTotalAmountText();
+    }
     
     public void handleConfirmOrderButtonMet() {
         try {
             // Get reference to the main controller
+            customer_infoController.ordersListl = orders;
             mainController mainController = (mainController) order_out_btn.getScene().getRoot().getUserData();
 
             // Call loadView method from mainController to switch views
@@ -315,6 +336,18 @@ public class orderController {
         // Set background color for the Pane (optional)
         orderSumPane.setStyle("-fx-background-color: FFFFFF;");
 
+    }
+
+    public void goBackToTable() {
+        try {
+            // Get reference to the main controller
+            mainController mainController = (mainController) order_out_btn.getScene().getRoot().getUserData();
+
+            // Call loadView method from mainController to switch views
+            mainController.loadView("/view/orders/table_orders.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
