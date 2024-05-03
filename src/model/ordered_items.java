@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.sql.ResultSet;
 
 public class ordered_items {
@@ -91,6 +92,7 @@ public class ordered_items {
         }
     }
 
+
     public static double findProductPrice(Connection connection, int productID) throws SQLException {
         double productPrice = 0.0; // Initialize to default value
     
@@ -133,6 +135,152 @@ public class ordered_items {
         }
     
         return productPrice;
+    }
+
+    public static double findProductPriceSimple(int productID) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        double productPrice = 0.0; // Initialize to default value
+    
+        try {
+            // Replace with your XAMPP connection details
+            String url = "jdbc:mysql://localhost:3306/sonigiri_database";
+            String username = "root";
+            String password = "";
+    
+            // Connect to the database
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(url, username, password);
+            System.err.println("Connected to database.");
+    
+            // Create a prepared statement to select product price
+            String sql = "SELECT product_price FROM product WHERE product_id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+    
+            // Set the value for the product_id parameter
+            preparedStatement.setInt(1, productID);
+    
+            // Execute the query and get the result set
+            resultSet = preparedStatement.executeQuery();
+    
+            // Check if a product is found
+            if (resultSet.next()) {
+                productPrice = resultSet.getDouble("product_price");
+            } else {
+                System.out.println("Product not found with ID: " + productID);
+            }
+    
+        } catch (SQLException e) {
+            System.out.println("Error connecting to database or retrieving product price: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error loading MySQL driver: " + e.getMessage());
+        } finally {
+            // Close resources (connection, prepared statement, and result set)
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    System.out.println("Error closing result set: " + e.getMessage());
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    System.out.println("Error closing prepared statement: " + e.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("Error closing connection: " + e.getMessage());
+                }
+            }
+        }
+    
+        return productPrice;
+    }
+    
+
+    public static String getProduct_name(int productId) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String productName = null;
+    
+        try {
+            // Replace with your XAMPP connection details
+            String url = "jdbc:mysql://localhost:3306/sonigiri_database";
+            String username = "root";
+            String password = "";
+    
+            // Connect to the database
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(url, username, password);
+            System.err.println("Connected to database.");
+    
+            // Create a prepared statement to select product name
+            String sql = "SELECT product_name FROM product WHERE product_id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+    
+            // Set the value for the placeholder in the query
+            preparedStatement.setInt(1, productId);
+    
+            // Execute the query and get the result set
+            resultSet = preparedStatement.executeQuery();
+    
+            // Check if a product is found
+            if (resultSet.next()) {
+                productName = resultSet.getString("product_name");
+            } else {
+                System.out.println("Product with ID " + productId + " not found.");
+            }
+    
+        } catch (SQLException e) {
+            System.out.println("Error connecting to database or retrieving product name: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error loading MySQL driver: " + e.getMessage());
+        } finally {
+            // Close resources (connection, prepared statement, and result set)
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    System.out.println("Error closing result set: " + e.getMessage());
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    System.out.println("Error closing prepared statement: " + e.getMessage());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("Error closing connection: " + e.getMessage());
+                }
+            }
+        }
+    
+        return productName;
+    }
+
+    public static void printOrderedItems(ArrayList<ordered_items> items) {
+        System.out.println("==========START OF ORDERED ITEMS==========");
+        for (ordered_items item : items) {
+            System.out.println("Order Number: " + item.getOrder_NumOrder());
+            System.out.println("Product ID: " + item.getProduct_id());
+            System.out.println("Is Spicy: " + item.isSpicy());
+            System.out.println("Quantity: " + item.getQuantity());
+            System.out.println("Price: " + item.getPrice());
+            System.out.println("---------------------------------------");
+        }
+        System.out.println("==========END OF ORDERED ITEMS==========");
     }
 
     public static void main(String[] args) throws ClassNotFoundException {
