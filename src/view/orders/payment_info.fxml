@@ -70,17 +70,17 @@
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="161.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
+            <Text fx:id="amountPaidText" layoutX="161.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="161.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
+            <Text fx:id="paymentMText" layoutX="161.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="161.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
+            <Text fx:id="changeText" layoutX="161.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="--">
                <font>
                   <Font size="11.0" />
                </font>
@@ -152,16 +152,16 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Text layoutX="14.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Method">
+                  <Text layoutX="14.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Name">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="14.0" layoutY="64.0" prefHeight="25.0" prefWidth="269.0" />
-                  <TextField layoutX="15.0" layoutY="133.0" prefHeight="25.0" prefWidth="269.0" />
+                  <TextField fx:id="GCContactName" layoutX="15.0" layoutY="133.0" prefHeight="25.0" prefWidth="269.0" />
+                  <TextField fx:id="GCContactNum" layoutX="14.0" layoutY="64.0" prefHeight="25.0" prefWidth="269.0" promptText="09xxxxxxxxx" />
                </children>
             </Pane>
-            <Pane fx:id="CashPane" layoutX="27.0" layoutY="150.0" prefHeight="200.0" prefWidth="388.0" style="-fx-background-color: #FFFFFF;" visible="false">
+            <Pane fx:id="CashPane" layoutX="27.0" layoutY="150.0" prefHeight="200.0" prefWidth="388.0" style="-fx-background-color: #FFFFFF;">
                <children>
                   <Text layoutX="15.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cash ">
                      <font>
@@ -173,8 +173,8 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="15.0" layoutY="65.0" prefHeight="25.0" prefWidth="269.0" />
-                  <Button layoutX="305.0" layoutY="65.0" mnemonicParsing="false" text="Calculate" />
+                  <TextField fx:id="CAmountPaidTextField" layoutX="15.0" layoutY="65.0" prefHeight="25.0" prefWidth="269.0" />
+                  <Button fx:id="CCalculateChangeButton" layoutX="305.0" layoutY="65.0" mnemonicParsing="false" onAction="#computeChange1" text="Calculate" />
                </children>
             </Pane>
          </children>

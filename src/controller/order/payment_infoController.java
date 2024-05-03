@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -19,6 +20,15 @@ import model.order;
 import model.ordered_items;
 
 public class payment_infoController {
+
+    @FXML
+    Button CCalculateChangeButton;
+
+    @FXML
+    TextField GCContactNum, GCContactName;
+
+    @FXML
+    TextField CAmountPaidTextField;
     
     @FXML
     Pane GCashPane, CashPane, paymentInfoPane, orderSumPane;
@@ -27,10 +37,16 @@ public class payment_infoController {
     VBox orderCard;
 
     @FXML
-    Text numOniText, orderNumText, totalAmountText, custNameText;
+    Text numOniText, orderNumText, totalAmountText, custNameText, paymentMText;
 
     @FXML
     Text custNoteText;
+
+    @FXML
+    Text amountPaidText;
+
+    @FXML
+    Text changeText;
 
     @FXML
     RadioButton GCash_RButton, Cash_RButton;
@@ -40,6 +56,10 @@ public class payment_infoController {
 
     static String custName;
     static String custNote;
+    static String paymentM;
+    static double amountPaid;
+    static double change;
+    static double totalAmount;
 
     @FXML
     Button backButton2;
@@ -55,6 +75,19 @@ public class payment_infoController {
         setOrderNumText();
         setCustInfo();
     }
+
+    public void selectPaymentMethod() {
+        if (GCash_RButton.isSelected()) {
+            paymentM = "GCash";
+            paymentMText.setText("GCash");
+        } else if (Cash_RButton.isSelected()) {
+            paymentM = "Cash";
+            paymentMText.setText("Cash");
+
+        }
+    }
+
+
 
     public void handleBackButton() {
     try {
@@ -77,6 +110,8 @@ public class payment_infoController {
     }   
 
 
+
+
     public void setCustInfo() {
         custNameText.setText(custName);
         custNoteText.setText(custNote);
@@ -95,7 +130,7 @@ public class payment_infoController {
     }
 
     public void setTotalAmountText() throws SQLException {
-        double totalAmount = 0.0;
+        totalAmount = 0.0;
         for (ordered_items order : ordersList2) {
             totalAmount += ordered_items.findProductPriceSimple(order.getProduct_id()) * order.getQuantity();
         }
@@ -126,14 +161,30 @@ public class payment_infoController {
         }
     }
 
-    public void handleGCashRadioButton() {
+    public void handleGCashRadioButton() throws SQLException {
+        GCContactName.clear();
+        GCContactNum.clear();
+        
         GCashPane.setVisible(true);
         CashPane.setVisible(false);
+
+        changeText.setText("0.00 Php");
+        setTotalAmountText();
+        amountPaidText.setText(String.valueOf(totalAmount) + "0 Php");
+
     }
 
     public void handleCashRadioButton() {
         GCashPane.setVisible(false);
         CashPane.setVisible(true);
+        changeText.setText("0.00 Php");
+    }
+
+    public void computeChange1() {
+        amountPaid = Double.parseDouble(CAmountPaidTextField.getText());    
+        amountPaidText.setText(String.valueOf(amountPaid) + "0 Php");
+        change = amountPaid - totalAmount;
+        changeText.setText(String.valueOf(change) + "0 Php");
     }
 
     public void setCustNameNote() {

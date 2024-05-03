@@ -93,7 +93,7 @@ public class orderController {
         for (ordered_items order : orders) {
             totalAmount += ordered_items.findProductPriceSimple(order.getProduct_id()) * order.getQuantity();
         }
-        totalAmountText.setText(totalAmount + "0 PHP");
+        totalAmountText.setText(totalAmount + "0 Php");
     }
 
     public void selectFlavor() {
