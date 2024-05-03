@@ -192,6 +192,14 @@ public class payment_infoController {
         custNoteText.setText(custNote);
     }
 
+    public void saveDataOrder() {
+
+    }
+
+    public void toTable() {
+        
+    }
+
     public void noSideRectangles() {
         Rectangle clipRect = new Rectangle();
         clipRect.setWidth(paymentInfoPane.getPrefWidth());

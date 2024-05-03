@@ -161,7 +161,7 @@
                   <TextField fx:id="GCContactNum" layoutX="14.0" layoutY="64.0" prefHeight="25.0" prefWidth="269.0" promptText="09xxxxxxxxx" />
                </children>
             </Pane>
-            <Pane fx:id="CashPane" layoutX="27.0" layoutY="150.0" prefHeight="200.0" prefWidth="388.0" style="-fx-background-color: #FFFFFF;">
+            <Pane fx:id="CashPane" layoutX="27.0" layoutY="150.0" prefHeight="200.0" prefWidth="388.0" style="-fx-background-color: #FFFFFF;" visible="false">
                <children>
                   <Text layoutX="15.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cash ">
                      <font>
