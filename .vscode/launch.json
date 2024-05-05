@@ -6,31 +6,43 @@
   "configurations": [
     {
       "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "App",
+      "projectName": "Sonigiri_App__d9b1df3b",
+      "vmArgs": "--module-path C:/javafx-sdk-20.0.1/lib --add-modules javafx.controls,javafx.media --add-modules=javafx.controls,javafx.fxml"
+    },
+    {
+      "type": "java",
       "name": "customer_infoController",
       "request": "launch",
       "mainClass": "controller.order.customer_infoController",
-      "projectName": "Sonigiri_App__195a521d"
+      "projectName": "Sonigiri_App__195a521d",
+      "vmArgs": "--module-path C:/javafx-sdk-20.0.1/lib --add-modules javafx.controls,javafx.media --add-modules=javafx.controls,javafx.fxml"
     },
     {
       "type": "java",
       "name": "ordered_items",
       "request": "launch",
       "mainClass": "model.ordered_items",
-      "projectName": "Sonigiri_App__195a521d"
+      "projectName": "Sonigiri_App__195a521d",
+      "vmArgs": "--module-path C:/javafx-sdk-20.0.1/lib --add-modules javafx.controls,javafx.media --add-modules=javafx.controls,javafx.fxml"
     },
     {
       "type": "java",
       "name": "orderM",
       "request": "launch",
       "mainClass": "model.orderM",
-      "projectName": "Sonigiri_App__195a521d"
+      "projectName": "Sonigiri_App__195a521d",
+      "vmArgs": "--module-path C:/javafx-sdk-20.0.1/lib --add-modules javafx.controls,javafx.media --add-modules=javafx.controls,javafx.fxml"
     },
     {
       "type": "java",
       "name": "order",
       "request": "launch",
       "mainClass": "model.order",
-      "projectName": "Sonigiri_App__195a521d"
+      "projectName": "Sonigiri_App__195a521d",
+      "vmArgs": "--module-path C:/javafx-sdk-20.0.1/lib --add-modules javafx.controls,javafx.media --add-modules=javafx.controls,javafx.fxml"
     },
     {
       "type": "java",
