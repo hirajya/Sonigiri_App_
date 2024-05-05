@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#faf5e6" height="900.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="808.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="900.0" layoutX="808.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
+      <Text fill="#242424" layoutX="950.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" wrappingWidth="51.5230712890625">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="177.0" fitWidth="328.0" layoutX="1036.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@login_heading.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="520.0" fitWidth="503.0" layoutX="156.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo_login.png" />
+         </image>
+      </ImageView>
+      <TextField layoutX="950.0" layoutY="303.0" prefHeight="45.0" prefWidth="500.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Text fill="#242424" layoutX="948.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="77.123046875">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <CheckBox layoutX="950.0" layoutY="471.0" mnemonicParsing="false" text="Stay signed in" textFill="#242424">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </CheckBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#004003" height="45.0" layoutX="950.0" layoutY="545.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="500.0" />
+      <Text fill="#487e4a" layoutX="1058.0" layoutY="673.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?" wrappingWidth="188.322998046875">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#487e4a" layoutX="1251.0" layoutY="673.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up." wrappingWidth="77.123046875">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="1174.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in" wrappingWidth="51.5230712890625">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#487e4a" layoutX="1338.0" layoutY="486.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgot Password?" wrappingWidth="111.72597656249991">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <PasswordField layoutX="951.0" layoutY="418.0" prefHeight="45.0" prefWidth="500.0" />
+   </children>
+</Pane>
