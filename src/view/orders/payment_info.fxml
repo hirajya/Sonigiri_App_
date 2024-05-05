@@ -90,7 +90,7 @@
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Button layoutX="119.0" layoutY="401.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="65.0" text="Done" />
+            <Button fx:id="done_orders_btn" layoutX="119.0" layoutY="401.0" mnemonicParsing="false" onAction="#toTable" prefHeight="24.0" prefWidth="65.0" text="Done" />
             <ScrollPane layoutX="15.0" layoutY="106.0" prefHeight="99.0" prefWidth="192.0">
                <content>
                   <VBox fx:id="orderCard" prefHeight="99.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;" />
@@ -102,7 +102,7 @@
                </font>
             </Text>
             <Text fx:id="custNoteText" layoutX="19.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="173.13671875" />
-            <Text fx:id="orderNumText" layoutX="66.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="......">
+            <Text fx:id="orderNumText" layoutX="69.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="......" wrappingWidth="119.390625">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
@@ -135,11 +135,11 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <RadioButton fx:id="Cash_RButton" layoutX="27.0" layoutY="73.0" mnemonicParsing="false" onAction="#handleCashRadioButton" text="Cash">
+            <RadioButton fx:id="Cash_RButton" layoutX="27.0" layoutY="73.0" mnemonicParsing="false" onAction="#handleCashRadioButton1" text="Cash">
                <toggleGroup>
                   <ToggleGroup fx:id="paymentMethodGroup" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="GCash_RButton" layoutX="27.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleGCashRadioButton" text="GCash" toggleGroup="$paymentMethodGroup" />
+            <RadioButton fx:id="GCash_RButton" layoutX="27.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleGCashRadioButton1" text="GCash" toggleGroup="$paymentMethodGroup" />
             <Pane fx:id="GCashPane" layoutX="27.0" layoutY="150.0" prefHeight="200.0" prefWidth="388.0" style="-fx-background-color: #FFFFFF;" visible="false">
                <children>
                   <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GCash Information">

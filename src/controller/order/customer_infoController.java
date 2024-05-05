@@ -43,7 +43,7 @@ public class customer_infoController {
     Button backButton1;
 
     static ArrayList<ordered_items> ordersListl;
-    static int orderNumCurrent = Integer.parseInt(order.getOrderNumCount()) + 1;
+    static int orderNumCurrent;
     static String custName;
     static String custNote;
 
@@ -52,6 +52,7 @@ public class customer_infoController {
     @FXML
     public void initialize() throws SQLException {
         ordered_items.printOrderedItems(ordersListl);
+        orderNumCurrent = Integer.parseInt(order.getOrderNumCount()) + 1;
         noSideRectangles();
         refreshTableOrder();
         setNumOniText();

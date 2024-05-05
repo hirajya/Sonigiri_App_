@@ -22,6 +22,9 @@ import model.ordered_items;
 public class payment_infoController {
 
     @FXML
+    Button done_orders_btn;
+
+    @FXML
     Button CCalculateChangeButton;
 
     @FXML
@@ -52,7 +55,7 @@ public class payment_infoController {
     RadioButton GCash_RButton, Cash_RButton;
 
     static ArrayList<ordered_items> ordersList2;
-    static int orderNumCurrent = Integer.parseInt(order.getOrderNumCount()) + 1;
+    static int orderNumCurrent;
 
     static String custName;
     static String custNote;
@@ -66,6 +69,7 @@ public class payment_infoController {
 
     public void initialize() throws SQLException {
         ordered_items.printOrderedItems(ordersList2);
+        orderNumCurrent = Integer.parseInt(order.getOrderNumCount()) + 1;
         GCashPane.setVisible(false);
         CashPane.setVisible(false);
         noSideRectangles();
@@ -80,11 +84,35 @@ public class payment_infoController {
         if (GCash_RButton.isSelected()) {
             paymentM = "GCash";
             paymentMText.setText("GCash");
+            amountPaidText.setText(String.valueOf(totalAmount) + "0 Php");
+            amountPaid = totalAmount;
         } else if (Cash_RButton.isSelected()) {
             paymentM = "Cash";
             paymentMText.setText("Cash");
 
         }
+    }
+
+    public void handleGCashRadioButton1() throws SQLException {
+        GCContactName.clear();
+        GCContactNum.clear();
+        
+        GCashPane.setVisible(true);
+        CashPane.setVisible(false);
+    
+        changeText.setText("0.00 Php");
+        setTotalAmountText();
+        amountPaidText.setText(String.valueOf(totalAmount) + "0 Php");
+        
+        selectPaymentMethod(); // Add this line to update paymentM
+    }
+    
+    public void handleCashRadioButton1() {
+        GCashPane.setVisible(false);
+        CashPane.setVisible(true);
+        changeText.setText("0.00 Php");
+        
+        selectPaymentMethod(); // Add this line to update paymentM
     }
 
 
@@ -192,12 +220,32 @@ public class payment_infoController {
         custNoteText.setText(custNote);
     }
 
-    public void saveDataOrder() {
-
+    public void saveDataOrder() throws ClassNotFoundException, SQLException {
+        for (ordered_items order : ordersList2) {
+            ordered_items.addOrder(order);
+        }
     }
 
-    public void toTable() {
-        
+    public void saveData() throws ClassNotFoundException, SQLException {
+        paymentM = paymentMText.getText();
+        order order1 = new order(orderNumCurrent, custName, paymentM, totalAmount, amountPaid, "Pending");
+        order.addOrder(order1);
+    }
+
+
+    public void toTable() throws ClassNotFoundException, SQLException {
+        saveData();
+        saveDataOrder();
+        try {
+            // Get reference to the main controller
+            mainController mainController = (mainController) done_orders_btn.getScene().getRoot().getUserData();
+
+            // Call loadView method from mainController to switch views
+            mainController.loadView("/view/orders/table_orders.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void noSideRectangles() {

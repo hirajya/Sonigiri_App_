@@ -95,7 +95,7 @@
                   <VBox fx:id="orderCard" prefHeight="99.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;" />
                </content>
             </ScrollPane>
-            <Text fx:id="orderNumText" layoutX="66.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="......">
+            <Text fx:id="orderNumText" layoutX="69.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="......" wrappingWidth="141.8857421875">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>

@@ -99,7 +99,13 @@ public class order {
             LocalDate localDate = getCurrentDate();
             java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);            
             String currentTime = getCurrentTime();
-            double change = order.getTotal_amt() - order.getAmnt_paid();
+            double change;
+            if (order.getOrder_MOP().equals("GCash")) {
+                change = 0.0;
+            } else {
+                change = order.getAmnt_paid() - order.getTotal_amt();
+
+            }
 
             // Set values for the prepared statement
             preparedStatement.setDate(1, sqlDate); 
@@ -222,8 +228,7 @@ public class order {
     
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        order order1 = new order(1, "John Doe",  "Cash", 100, 50,"Pending");
-        addOrder(order1);
+
         System.out.println(getOrderNumCount());    
         
     }

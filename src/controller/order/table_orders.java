@@ -14,6 +14,7 @@ public class table_orders {
 
     public void initialize() {
         
+        
     }
 
     public void handleAddOrderButtonMet() {

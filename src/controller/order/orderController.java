@@ -54,14 +54,16 @@ public class orderController {
     static String orderSelected;
     static String isSpicySelected;
     static int product_idSelected;
-    static int orderNumCurrent = Integer.parseInt(order.getOrderNumCount()) + 1;
+    static int orderNumCurrent;
     static double totalAmount = 0.0;
     static int numberOfOnigiri = 0; 
 
     @FXML
     public void initialize() throws IOException {
         noSideRectangles();
+        orderNumCurrent = Integer.parseInt(order.getOrderNumCount()) + 1;
         setOrderNumText();
+        orders.clear();
         try {
             refreshTable(); // Call this method to populate the orderCard VBox with the updated data
             setNumOniText();
@@ -71,6 +73,7 @@ public class orderController {
         }
         
     }
+
 
     public void setMainController(mainController mainController) {
         this.mainController = mainController;
@@ -311,6 +314,8 @@ public class orderController {
             e.printStackTrace();
         }
     }
+
+
 
     public void noSideRectangles() {
         Rectangle clipRect = new Rectangle();
