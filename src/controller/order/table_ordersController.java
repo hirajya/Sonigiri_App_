@@ -16,6 +16,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+
 
 
 public class table_ordersController {
@@ -40,44 +44,71 @@ public class table_ordersController {
 
     private void fetchData() {
         ObservableList<OrderView> orders = FXCollections.observableArrayList();
-      
+    
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
-          PreparedStatement preparedStatement = connection.prepareStatement(
-              "SELECT o.order_NumOrder, o.order_CusName AS buyerName, o.order_Date, o.order_Time, " +
-                  "SUM(CASE WHEN i.isSpicy = 'Spicy' AND p.product_Name = 'Tuna Mayo' THEN i.qty ELSE 0 END) AS spicy_tuna_mayo, " +
-                  "SUM(CASE WHEN i.isSpicy = 'Spicy' AND p.product_Name = 'Bulgogi' THEN i.qty ELSE 0 END) AS spicy_bulgogi, " +
-                  "SUM(CASE WHEN i.isSpicy = 'Spicy' AND p.product_Name = 'Chicken Adobo' THEN i.qty ELSE 0 END) AS spicy_chicken_adobo, " +
-                  "SUM(CASE WHEN i.isSpicy = 'Not Spicy' AND p.product_Name = 'Tuna Mayo' THEN i.qty ELSE 0 END) AS not_spicy_tuna_mayo, " +
-                  "SUM(CASE WHEN i.isSpicy = 'Not Spicy' AND p.product_Name = 'Bulgogi' THEN i.qty ELSE 0 END) AS not_spicy_bulgogi, " +
-                  "SUM(CASE WHEN i.isSpicy = 'Not Spicy' AND p.product_Name = 'Chicken Adobo' THEN i.qty ELSE 0 END) AS not_spicy_chicken_adobo " +
-              "FROM order_table o " +
-                  "LEFT JOIN ordered_items i ON o.order_NumOrder = i.order_NumOrder " +
-                  "LEFT JOIN product p ON i.product_id = p.product_id " +
-              "GROUP BY o.order_NumOrder" // Group by order number
-          );
-          ResultSet resultSet = preparedStatement.executeQuery();
-          while (resultSet.next()) {
-            int orderNum = resultSet.getInt("order_NumOrder");
-            String buyerName = resultSet.getString("buyerName");
-            String orderDate = resultSet.getString("order_Date");
-            String orderTime = resultSet.getString("order_Time");
-            int spicyTunaMayoCount = resultSet.getInt("spicy_tuna_mayo");
-            int spicyBulgogiCount = resultSet.getInt("spicy_bulgogi");
-            int spicyChickenAdoboCount = resultSet.getInt("spicy_chicken_adobo");
-            int notSpicyTunaMayoCount = resultSet.getInt("not_spicy_tuna_mayo");
-            int notSpicyBulgogiCount = resultSet.getInt("not_spicy_bulgogi");
-            int notSpicyChickenAdoboCount = resultSet.getInt("not_spicy_chicken_adobo");
-      
-            orders.add(new OrderView(orderNum, buyerName, orderDate, orderTime,
-                spicyTunaMayoCount, spicyBulgogiCount, spicyChickenAdoboCount,
-                notSpicyTunaMayoCount, notSpicyBulgogiCount, notSpicyChickenAdoboCount));
-          }
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT o.order_NumOrder, o.order_CusName AS buyerName, o.order_Date, o.order_Time, " +
+                    "i.product_id, i.isSpicy, i.qty " +
+                "FROM order_table o " +
+                    "LEFT JOIN ordered_items i ON o.order_NumOrder = i.order_NumOrder " +
+                    "LEFT JOIN product p ON i.product_id = p.product_id"
+            );
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Map<Integer, OrderView> orderMap = new HashMap<>();
+            while (resultSet.next()) {
+                int orderNum = resultSet.getInt("order_NumOrder");
+                String buyerName = resultSet.getString("buyerName");
+                String orderDate = resultSet.getString("order_Date");
+                String orderTime = resultSet.getString("order_Time");
+                int productId = resultSet.getInt("product_id");
+                String isSpicy = resultSet.getString("isSpicy");
+                int qty = resultSet.getInt("qty");
+    
+                OrderView orderView;
+                if (!orderMap.containsKey(orderNum)) {
+                    orderView = new OrderView(orderNum, buyerName, orderDate, orderTime, 0, 0, 0, 0, 0, 0);
+                    orderMap.put(orderNum, orderView);
+                    orders.add(orderView);
+                } else {
+                    orderView = orderMap.get(orderNum);
+                }
+    
+                // Adjust quantity based on spiciness
+                if (isSpicy.equals("Spicy")) {
+                    switch (productId) {
+                        case 1: // Product ID for Tuna Mayo
+                            orderView.setSpicyTunaMayoCount(qty);
+                            break;
+                        case 2: // Product ID for Bulgogi
+                            orderView.setSpicyBulgogiCount(qty);
+                            break;
+                        case 3: // Product ID for Chicken Adobo
+                            orderView.setSpicyChickenAdoboCount(qty);
+                            break;
+                        // Add more cases if needed for other products
+                    }
+                } else if (isSpicy.equals("Not Spicy")) {
+                    switch (productId) {
+                        case 1: // Product ID for Tuna Mayo
+                            orderView.setNotSpicyTunaMayoCount(qty);
+                            break;
+                        case 2: // Product ID for Bulgogi
+                            orderView.setNotSpicyBulgogiCount(qty);
+                            break;
+                        case 3: // Product ID for Chicken Adobo
+                            orderView.setNotSpicyChickenAdoboCount(qty);
+                            break;
+                        // Add more cases if needed for other products
+                    }
+                }
+            }
         } catch (SQLException e) {
-          e.printStackTrace();
+            e.printStackTrace();
         }
-      
+    
         tableViewOrder.setItems(orders);
-      }
+    }
+    
       
 
 
@@ -143,17 +174,17 @@ public class table_ordersController {
         }
     }
 
-    public static class OrderView {
+    public class OrderView {
         private final int orderNum;
         private final String custName;
         private final String orderDate;
         private final String orderTime;
-        private final int spicyTunaMayoCount;
-        private final int spicyBulgogiCount;
-        private final int spicyChickenAdoboCount;
-        private final int notSpicyTunaMayoCount;
-        private final int notSpicyBulgogiCount;
-        private final int notSpicyChickenAdoboCount;
+        private int spicyTunaMayoCount;
+        private int spicyBulgogiCount;
+        private int spicyChickenAdoboCount;
+        private int notSpicyTunaMayoCount;
+        private int notSpicyBulgogiCount;
+        private int notSpicyChickenAdoboCount;
     
         public OrderView(int orderNum, String custName, String orderDate, String orderTime,
                          int spicyTunaMayoCount, int spicyBulgogiCount, int spicyChickenAdoboCount,
@@ -170,6 +201,7 @@ public class table_ordersController {
             this.notSpicyChickenAdoboCount = notSpicyChickenAdoboCount;
         }
     
+        // Getters
         public int getOrderNum() {
             return orderNum;
         }
@@ -190,26 +222,51 @@ public class table_ordersController {
             return spicyTunaMayoCount;
         }
     
+        public void setSpicyTunaMayoCount(int spicyTunaMayoCount) {
+            this.spicyTunaMayoCount = spicyTunaMayoCount;
+        }
+    
         public int getSpicyBulgogiCount() {
             return spicyBulgogiCount;
+        }
+    
+        public void setSpicyBulgogiCount(int spicyBulgogiCount) {
+            this.spicyBulgogiCount = spicyBulgogiCount;
         }
     
         public int getSpicyChickenAdoboCount() {
             return spicyChickenAdoboCount;
         }
     
+        public void setSpicyChickenAdoboCount(int spicyChickenAdoboCount) {
+            this.spicyChickenAdoboCount = spicyChickenAdoboCount;
+        }
+    
         public int getNotSpicyTunaMayoCount() {
             return notSpicyTunaMayoCount;
+        }
+    
+        public void setNotSpicyTunaMayoCount(int notSpicyTunaMayoCount) {
+            this.notSpicyTunaMayoCount = notSpicyTunaMayoCount;
         }
     
         public int getNotSpicyBulgogiCount() {
             return notSpicyBulgogiCount;
         }
     
+        public void setNotSpicyBulgogiCount(int notSpicyBulgogiCount) {
+            this.notSpicyBulgogiCount = notSpicyBulgogiCount;
+        }
+    
         public int getNotSpicyChickenAdoboCount() {
             return notSpicyChickenAdoboCount;
         }
+    
+        public void setNotSpicyChickenAdoboCount(int notSpicyChickenAdoboCount) {
+            this.notSpicyChickenAdoboCount = notSpicyChickenAdoboCount;
+        }
     }
+    
     
 }
 
