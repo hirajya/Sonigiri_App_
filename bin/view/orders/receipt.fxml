@@ -89,7 +89,6 @@
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Button layoutX="119.0" layoutY="401.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="65.0" text="Done" />
             <ScrollPane layoutX="15.0" layoutY="106.0" prefHeight="99.0" prefWidth="192.0">
                <content>
                   <VBox fx:id="orderCard" prefHeight="99.0" prefWidth="175.0" style="-fx-background-color: #FFFFFF;" />
