@@ -1,6 +1,10 @@
 package controller.order;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -67,9 +71,13 @@ public class payment_infoController {
     @FXML
     Button backButton2;
 
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/sonigiri_database";
+    private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "";
+
     public void initialize() throws SQLException {
         ordered_items.printOrderedItems(ordersList2);
-        orderNumCurrent = Integer.parseInt(order.getOrderNumCount()) + 1;
+        orderNumCurrent = getNextAvailableOrderNumber();
         GCashPane.setVisible(false);
         CashPane.setVisible(false);
         noSideRectangles();
@@ -78,6 +86,37 @@ public class payment_infoController {
         setTotalAmountText();
         setOrderNumText();
         setCustInfo();
+    }
+
+    private int getNextAvailableOrderNumber() {
+        int nextOrderNumber = Integer.parseInt(order.getOrderNumCount()) + 1;
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            String query = "SELECT order_NumOrder FROM order_table ORDER BY order_NumOrder";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            int expectedOrderNumber = 1;
+
+            while (resultSet.next()) {
+                int currentOrderNumber = resultSet.getInt("order_NumOrder");
+
+                if (currentOrderNumber != expectedOrderNumber) {
+                    nextOrderNumber = expectedOrderNumber;
+                    break;
+                }
+                expectedOrderNumber++;
+            }
+
+            if (nextOrderNumber == expectedOrderNumber) {
+                nextOrderNumber = expectedOrderNumber;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return nextOrderNumber;
     }
 
     public void selectPaymentMethod() {

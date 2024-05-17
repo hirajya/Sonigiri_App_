@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -27,9 +28,14 @@ import model.order;
 import model.ordered_items;
 
 public class receipt_Controller {
+
+
     
     @FXML
     Text dateText, timeText;
+
+    @FXML
+    Button progressButton;
 
     @FXML
     ImageView statusTrackerImage;
@@ -45,6 +51,8 @@ public class receipt_Controller {
 
     static int orderNum;
 
+    static int qty;
+
 
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/sonigiri_database";
@@ -57,6 +65,10 @@ public class receipt_Controller {
 
 
     public void initialize() throws SQLException {
+        orders.clear();
+        qty = 0;
+        orderCard.getChildren().clear();
+        setTrackingFirst();
         // Set the order number
         orderNumText.setText(String.valueOf(orderNum));
         System.out.println("Order Number: " + orderNum);
@@ -65,12 +77,10 @@ public class receipt_Controller {
         // Fetch and display order details using the orderNum
     }
 
-    public void handleCancelOrderButton() {
-        
-    }
+    
 
     public void handleBackButton() {
-        // Go back to the previous page
+        toTable();
     }
 
     public void updateDetailsOrder() throws SQLException {
@@ -78,7 +88,7 @@ public class receipt_Controller {
         fetchDataOrder();
 
         // count qty 
-        int qty = 0;
+        qty = 0;
         for (ordered_items order : orders) {
             qty += order.getQuantity();
         }
@@ -86,8 +96,118 @@ public class receipt_Controller {
 
         updateContainerOrders();
 
-        
+    }
 
+    public void deleteOrder() {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            // Start transaction
+            connection.setAutoCommit(false);
+    
+            // Delete from ordered_items table
+            try (PreparedStatement preparedStatement = connection.prepareStatement(
+                    "DELETE FROM ordered_items WHERE order_NumOrder = ?")) {
+                preparedStatement.setInt(1, orderNum);
+                preparedStatement.executeUpdate();
+            }
+    
+            // Delete from order_table
+            try (PreparedStatement preparedStatement = connection.prepareStatement(
+                    "DELETE FROM order_table WHERE order_NumOrder = ?")) {
+                preparedStatement.setInt(1, orderNum);
+                preparedStatement.executeUpdate();
+            }
+    
+            // Commit transaction
+            connection.commit();
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+                // Rollback transaction in case of error
+                connection.rollback();
+            } catch (SQLException rollbackException) {
+                rollbackException.printStackTrace();
+            }
+        }
+        // go to table
+        toTable();
+    }
+
+    public void toTable() {
+        try {
+            // Get reference to the main controller
+            mainController mainController = (mainController) cancelOrderButton.getScene().getRoot().getUserData();
+
+            // Call loadView method from mainController to switch views
+            mainController.loadView("/view/orders/table_orders.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setProgress() {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "UPDATE order_table SET order_Status = ? WHERE order_NumOrder = ?"
+            );
+            if (progressButton.getText().equals("Mark as Making")) {
+                preparedStatement.setString(1, "Making");
+            } else if (progressButton.getText().equals("Mark as Ready")) {
+                preparedStatement.setString(1, "Ready");
+            } else if (progressButton.getText().equals("Mark as Done")) {
+                preparedStatement.setString(1, "Done");
+            }
+            preparedStatement.setInt(2, orderNum);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+
+    public void progressMethod() {
+        if (progressButton.getText().equals("Mark as Making")) {
+            setProgress();
+            progressButton.setText("Mark as Ready");
+            statusTrackerImage.setImage(new Image(getClass().getResourceAsStream("/assets/orders/Status2.png")));
+        } else if (progressButton.getText().equals("Mark as Ready")) {
+            setProgress();
+            progressButton.setText("Mark as Done");
+            statusTrackerImage.setImage(new Image(getClass().getResourceAsStream("/assets/orders/Status3.png")));
+        } else if (progressButton.getText().equals("Mark as Done")) {
+            setProgress();
+            progressButton.setVisible(false);
+            statusTrackerImage.setImage(new Image(getClass().getResourceAsStream("/assets/orders/Status4.png")));
+        }
+    }
+
+    public void setTrackingFirst() {
+        // check first what is the order status then update details
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT order_Status FROM order_table WHERE order_NumOrder = ?"
+            );
+            preparedStatement.setInt(1, orderNum);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String orderStatus = resultSet.getString("order_Status");
+                if (orderStatus.equals("Pending")) {
+                    progressButton.setText("Mark as Making");
+                    statusTrackerImage.setImage(new Image(getClass().getResourceAsStream("/assets/orders/Status1.png")));
+                } else if (orderStatus.equals("Making")) {
+                    progressButton.setText("Mark as Ready");
+                    statusTrackerImage.setImage(new Image(getClass().getResourceAsStream("/assets/orders/Status2.png")));
+                } else if (orderStatus.equals("Ready")) {
+                    progressButton.setText("Mark as Done");
+                    statusTrackerImage.setImage(new Image(getClass().getResourceAsStream("/assets/orders/Status3.png")));
+                } else if (orderStatus.equals("Done")) {
+                    progressButton.setVisible(false);
+                    statusTrackerImage.setImage(new Image(getClass().getResourceAsStream("/assets/orders/Status4.png")));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateContainerOrders() throws SQLException{

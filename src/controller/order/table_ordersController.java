@@ -3,6 +3,7 @@ package controller.order;
 import java.io.IOException;
 
 import controller.mainController;
+import controller.order.utils.StatusTableCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +20,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.control.TableCell;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javafx.scene.layout.HBox;
+import javafx.util.Callback;
 
 
 
@@ -41,8 +48,6 @@ public class table_ordersController {
         setupTableView();
         addTableClickListener();
     }
-
-
 
     private void fetchData() {
         ObservableList<OrderView> orders = FXCollections.observableArrayList();
@@ -113,6 +118,9 @@ public class table_ordersController {
         tableViewOrder.setItems(orders);
     }
 
+    
+    
+
     private void addTableClickListener() {
         tableViewOrder.setOnMouseClicked((MouseEvent event) -> {
             if (event.getClickCount() == 2 && tableViewOrder.getSelectionModel().getSelectedItem() != null) {
@@ -139,11 +147,10 @@ public class table_ordersController {
             e.printStackTrace();
         }
     }
+
     
 
 
-    
-    
       
 
 
@@ -152,51 +159,53 @@ public class table_ordersController {
     private void setupTableView() {
         TableColumn<OrderView, Integer> orderNumColumn = new TableColumn<>("Order #");
         orderNumColumn.setCellValueFactory(new PropertyValueFactory<>("orderNum"));
-    
+
         TableColumn<OrderView, String> custNameColumn = new TableColumn<>("Cust Name");
         custNameColumn.setCellValueFactory(new PropertyValueFactory<>("custName"));
-    
+
         TableColumn<OrderView, String> orderDateColumn = new TableColumn<>("Date");
         orderDateColumn.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
-    
+
         TableColumn<OrderView, String> orderTimeColumn = new TableColumn<>("Time");
         orderTimeColumn.setCellValueFactory(new PropertyValueFactory<>("orderTime"));
 
         TableColumn<OrderView, String> PStatusColumn = new TableColumn<>("Status");
         PStatusColumn.setCellValueFactory(new PropertyValueFactory<>("PStatus"));
-    
+        PStatusColumn.setCellFactory(column -> new StatusTableCell());
+
         // Spicy category
         TableColumn<OrderView, Integer> spicyColumn = new TableColumn<>("Spicy");
         tableViewOrder.getColumns().add(spicyColumn);
-    
+
         TableColumn<OrderView, Integer> spicyTunaMayoCountColumn = new TableColumn<>("Tna Myo");
         spicyTunaMayoCountColumn.setCellValueFactory(new PropertyValueFactory<>("spicyTunaMayoCount"));
-    
+
         TableColumn<OrderView, Integer> spicyBulgogiCountColumn = new TableColumn<>("Blg");
         spicyBulgogiCountColumn.setCellValueFactory(new PropertyValueFactory<>("spicyBulgogiCount"));
-    
+
         TableColumn<OrderView, Integer> spicyChickenAdoboCountColumn = new TableColumn<>("Chck Adb");
         spicyChickenAdoboCountColumn.setCellValueFactory(new PropertyValueFactory<>("spicyChickenAdoboCount"));
-    
+
         spicyColumn.getColumns().addAll(spicyTunaMayoCountColumn, spicyBulgogiCountColumn, spicyChickenAdoboCountColumn);
-    
+
         // Not Spicy category
         TableColumn<OrderView, Integer> notSpicyColumn = new TableColumn<>("Not Spicy");
         tableViewOrder.getColumns().add(notSpicyColumn);
-    
+
         TableColumn<OrderView, Integer> notSpicyTunaMayoCountColumn = new TableColumn<>("Tna Myo");
         notSpicyTunaMayoCountColumn.setCellValueFactory(new PropertyValueFactory<>("notSpicyTunaMayoCount"));
-    
+
         TableColumn<OrderView, Integer> notSpicyBulgogiCountColumn = new TableColumn<>("Blg");
         notSpicyBulgogiCountColumn.setCellValueFactory(new PropertyValueFactory<>("notSpicyBulgogiCount"));
-    
+
         TableColumn<OrderView, Integer> notSpicyChickenAdoboCountColumn = new TableColumn<>("Chck Adb");
         notSpicyChickenAdoboCountColumn.setCellValueFactory(new PropertyValueFactory<>("notSpicyChickenAdoboCount"));
-    
+
         notSpicyColumn.getColumns().addAll(notSpicyTunaMayoCountColumn, notSpicyBulgogiCountColumn, notSpicyChickenAdoboCountColumn);
-    
+
         tableViewOrder.getColumns().addAll(orderNumColumn, custNameColumn, orderDateColumn, orderTimeColumn, PStatusColumn);
     }
+
     
     
 
