@@ -6,6 +6,8 @@ import controller.mainController;
 import controller.order.utils.StatusTableCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -34,6 +36,9 @@ public class table_ordersController {
 
     @FXML
     Button add_order_btn;
+
+    @FXML
+    Button FpendingBtn, FmakingBtn, FreadyBtn, FdoneBtn, FallBtn;
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/sonigiri_database";
     private static final String DB_USERNAME = "root";
@@ -222,6 +227,74 @@ public class table_ordersController {
         MakingOrdersCnt.setText(String.valueOf(making));
         ReadyOrdersCnt.setText(String.valueOf(ready));
         OrderClaimedCnt.setText(String.valueOf(done));
+    }
+
+    public void showAll() {
+        fetchData();
+    }
+
+    public void showPendingOrders() {
+        fetchData();
+        // Get the current list of orders in the TableView
+        ObservableList<OrderView> allOrders = tableViewOrder.getItems();
+
+        // Use a FilteredList to filter orders by status
+        FilteredList<OrderView> filteredOrders = new FilteredList<>(allOrders, order -> "Pending".equals(order.getPStatus()));
+
+        // Wrap the FilteredList in a SortedList (if you want to maintain sorting)
+        SortedList<OrderView> sortedOrders = new SortedList<>(filteredOrders);
+        sortedOrders.comparatorProperty().bind(tableViewOrder.comparatorProperty());
+
+        // Set the filtered and sorted list as the items for the TableView
+        tableViewOrder.setItems(sortedOrders);
+    }
+
+    public void showMakingOrders() {
+        fetchData();
+        // Get the current list of orders in the TableView
+        ObservableList<OrderView> allOrders = tableViewOrder.getItems();
+
+        // Use a FilteredList to filter orders by status
+        FilteredList<OrderView> filteredOrders = new FilteredList<>(allOrders, order -> "Making".equals(order.getPStatus()));
+
+        // Wrap the FilteredList in a SortedList (if you want to maintain sorting)
+        SortedList<OrderView> sortedOrders = new SortedList<>(filteredOrders);
+        sortedOrders.comparatorProperty().bind(tableViewOrder.comparatorProperty());
+
+        // Set the filtered and sorted list as the items for the TableView
+        tableViewOrder.setItems(sortedOrders);
+    }
+
+    public void showReadyOrders() {
+        fetchData();
+        // Get the current list of orders in the TableView
+        ObservableList<OrderView> allOrders = tableViewOrder.getItems();
+
+        // Use a FilteredList to filter orders by status
+        FilteredList<OrderView> filteredOrders = new FilteredList<>(allOrders, order -> "Ready".equals(order.getPStatus()));
+
+        // Wrap the FilteredList in a SortedList (if you want to maintain sorting)
+        SortedList<OrderView> sortedOrders = new SortedList<>(filteredOrders);
+        sortedOrders.comparatorProperty().bind(tableViewOrder.comparatorProperty());
+
+        // Set the filtered and sorted list as the items for the TableView
+        tableViewOrder.setItems(sortedOrders);
+    }
+
+    public void showDoneOrders() {
+        fetchData();
+        // Get the current list of orders in the TableView
+        ObservableList<OrderView> allOrders = tableViewOrder.getItems();
+
+        // Use a FilteredList to filter orders by status
+        FilteredList<OrderView> filteredOrders = new FilteredList<>(allOrders, order -> "Done".equals(order.getPStatus()));
+
+        // Wrap the FilteredList in a SortedList (if you want to maintain sorting)
+        SortedList<OrderView> sortedOrders = new SortedList<>(filteredOrders);
+        sortedOrders.comparatorProperty().bind(tableViewOrder.comparatorProperty());
+
+        // Set the filtered and sorted list as the items for the TableView
+        tableViewOrder.setItems(sortedOrders);
     }
 
 

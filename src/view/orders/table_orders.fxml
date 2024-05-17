@@ -17,5 +17,10 @@
       <Text fx:id="MakingOrdersCnt" layoutX="177.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
       <Text fx:id="ReadyOrdersCnt" layoutX="312.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
       <Text fx:id="OrderClaimedCnt" layoutX="445.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Button fx:id="FpendingBtn" layoutX="102.0" layoutY="435.0" mnemonicParsing="false" onAction="#showPendingOrders" text="pending" />
+      <Button fx:id="FmakingBtn" layoutX="187.0" layoutY="435.0" mnemonicParsing="false" onAction="#showMakingOrders" text="making" />
+      <Button fx:id="FreadyBtn" layoutX="286.0" layoutY="435.0" mnemonicParsing="false" onAction="#showReadyOrders" text="ready" />
+      <Button fx:id="FdoneBtn" layoutX="369.0" layoutY="435.0" mnemonicParsing="false" onAction="#showDoneOrders" text="done" />
+      <Button fx:id="FallBtn" layoutX="20.0" layoutY="435.0" mnemonicParsing="false" onAction="#showAll" text="All" />
    </children>
 </AnchorPane>
