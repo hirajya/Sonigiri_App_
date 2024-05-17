@@ -154,7 +154,7 @@
             </Text>
          </children>
       </Pane>
-      <Button fx:id="cancelOrderButton" layoutX="28.0" layoutY="82.0" mnemonicParsing="false" onAction="#deleteOrder" text="Cancel Order" />
+      <Button fx:id="cancelOrderButton" layoutX="28.0" layoutY="82.0" mnemonicParsing="false" onAction="#handleCancelOrderButton" text="Cancel Order" />
       <Button fx:id="progressButton" layoutX="365.0" layoutY="299.0" mnemonicParsing="false" onAction="#progressMethod" text="Mark as Making" />
    </children>
 </AnchorPane>

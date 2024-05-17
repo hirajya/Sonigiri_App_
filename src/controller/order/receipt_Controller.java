@@ -16,7 +16,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -131,6 +134,21 @@ public class receipt_Controller {
         }
         // go to table
         toTable();
+    }
+
+    public void handleCancelOrderButton() {
+        showDeleteConfirmation();
+    }
+
+    private void showDeleteConfirmation() {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Delete Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to delete this order?");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            deleteOrder();
+        }
     }
 
     public void toTable() {
