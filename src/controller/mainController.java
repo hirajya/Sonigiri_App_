@@ -30,6 +30,12 @@ public class mainController {
 
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    private int orderNum;
+
+    public int getOrderNum() {
+        return orderNum;
+    }
+
 
 
     @FXML
@@ -86,6 +92,10 @@ public class mainController {
     AnchorPane newView = FXMLLoader.load(getClass().getResource(fxmlFile));
     ((AnchorPane) mainPane.getCenter()).getChildren().clear();  // Clear existing content
     ((AnchorPane) mainPane.getCenter()).getChildren().add(newView);  // Add new view to center AnchorPane
+    }
+
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
     }
 
     // private void updateTime() {

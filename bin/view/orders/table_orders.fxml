@@ -10,9 +10,9 @@
    <children>
       <Text layoutX="472.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tables" />
       <Button fx:id="add_order_btn" layoutX="574.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleAddOrderButtonMet" text="addOrder" />
-      <ScrollPane layoutX="14.0" layoutY="50.0" prefHeight="322.0" prefWidth="700.0">
+      <ScrollPane layoutX="14.0" layoutY="50.0" prefHeight="322.0" prefWidth="695.0">
          <content>
-            <TableView fx:id="tableViewOrder" prefHeight="307.0" prefWidth="698.0" />
+            <TableView fx:id="tableViewOrder" prefHeight="307.0" prefWidth="696.0" />
          </content>
       </ScrollPane>
    </children>

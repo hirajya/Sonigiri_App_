@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="740.0" style="-fx-background-color: #F1F1F1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.payment_infoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="740.0" style="-fx-background-color: #F1F1F1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.order.receipt_Controller">
    <children>
       <Pane fx:id="orderSumPane" layoutX="487.0" layoutY="23.0" prefHeight="425.0" prefWidth="221.0" style="-fx-background-color: #FFFFFF;">
          <children>
@@ -108,7 +108,7 @@
             </Text>
          </children>
       </Pane>
-      <Button fx:id="backButton2" layoutX="22.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="25.0" prefWidth="36.0" text="&lt;-" />
+      <Button fx:id="backButton2" layoutX="22.0" layoutY="19.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" text="&lt;-" />
       <Text layoutX="68.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders" />
       <Text layoutX="131.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Information" />
       <Text layoutX="111.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="//">

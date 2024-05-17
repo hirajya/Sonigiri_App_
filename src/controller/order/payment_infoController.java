@@ -228,7 +228,7 @@ public class payment_infoController {
 
     public void saveData() throws ClassNotFoundException, SQLException {
         paymentM = paymentMText.getText();
-        order order1 = new order(orderNumCurrent, custName, paymentM, totalAmount, amountPaid, "Pending");
+        order order1 = new order(orderNumCurrent, custName, paymentM, totalAmount, amountPaid, "Pending", custNote);
         order.addOrder(order1);
     }
 

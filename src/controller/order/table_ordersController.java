@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -38,6 +39,7 @@ public class table_ordersController {
     public void initialize() {
         fetchData();
         setupTableView();
+        addTableClickListener();
     }
 
 
@@ -47,12 +49,13 @@ public class table_ordersController {
     
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
-                "SELECT o.order_NumOrder, o.order_CusName AS buyerName, o.order_Date, o.order_Time, " +
-                    "i.product_id, i.isSpicy, i.qty " +
+                "SELECT o.order_NumOrder, o.order_CusName AS buyerName, o.order_Date, o.order_Time, o.order_Status, " +
+                "i.product_id, i.isSpicy, i.qty " +
                 "FROM order_table o " +
-                    "LEFT JOIN ordered_items i ON o.order_NumOrder = i.order_NumOrder " +
-                    "LEFT JOIN product p ON i.product_id = p.product_id"
+                "LEFT JOIN ordered_items i ON o.order_NumOrder = i.order_NumOrder " +
+                "LEFT JOIN product p ON i.product_id = p.product_id"
             );
+    
             ResultSet resultSet = preparedStatement.executeQuery();
             Map<Integer, OrderView> orderMap = new HashMap<>();
             while (resultSet.next()) {
@@ -60,13 +63,14 @@ public class table_ordersController {
                 String buyerName = resultSet.getString("buyerName");
                 String orderDate = resultSet.getString("order_Date");
                 String orderTime = resultSet.getString("order_Time");
+                String PStatus = resultSet.getString("order_Status");
                 int productId = resultSet.getInt("product_id");
                 String isSpicy = resultSet.getString("isSpicy");
                 int qty = resultSet.getInt("qty");
     
                 OrderView orderView;
                 if (!orderMap.containsKey(orderNum)) {
-                    orderView = new OrderView(orderNum, buyerName, orderDate, orderTime, 0, 0, 0, 0, 0, 0);
+                    orderView = new OrderView(orderNum, buyerName, orderDate, orderTime, 0, 0, 0, 0, 0, 0, PStatus);
                     orderMap.put(orderNum, orderView);
                     orders.add(orderView);
                 } else {
@@ -108,6 +112,37 @@ public class table_ordersController {
     
         tableViewOrder.setItems(orders);
     }
+
+    private void addTableClickListener() {
+        tableViewOrder.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() == 2 && tableViewOrder.getSelectionModel().getSelectedItem() != null) {
+                toReceipt();
+            }
+        });
+    }
+
+    private void toReceipt() {
+        try {
+            // Get reference to the main controller
+            mainController mainController = (mainController) add_order_btn.getScene().getRoot().getUserData();
+            
+            // Get the selected order
+            OrderView selectedOrder = tableViewOrder.getSelectionModel().getSelectedItem();
+            if (selectedOrder != null) {
+                int selectedOrderNum = selectedOrder.getOrderNum();
+                // Pass the selected order number to the receipt controller
+                receipt_Controller.orderNum = selectedOrderNum;
+                // Call loadView method from mainController to switch views
+                mainController.loadView("/view/orders/receipt.fxml");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+
+
+    
     
       
 
@@ -115,17 +150,20 @@ public class table_ordersController {
     
 
     private void setupTableView() {
-        TableColumn<OrderView, Integer> orderNumColumn = new TableColumn<>("Order Number");
+        TableColumn<OrderView, Integer> orderNumColumn = new TableColumn<>("Order #");
         orderNumColumn.setCellValueFactory(new PropertyValueFactory<>("orderNum"));
     
         TableColumn<OrderView, String> custNameColumn = new TableColumn<>("Cust Name");
         custNameColumn.setCellValueFactory(new PropertyValueFactory<>("custName"));
     
-        TableColumn<OrderView, String> orderDateColumn = new TableColumn<>("Order Date");
+        TableColumn<OrderView, String> orderDateColumn = new TableColumn<>("Date");
         orderDateColumn.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
     
-        TableColumn<OrderView, String> orderTimeColumn = new TableColumn<>("Order Time");
+        TableColumn<OrderView, String> orderTimeColumn = new TableColumn<>("Time");
         orderTimeColumn.setCellValueFactory(new PropertyValueFactory<>("orderTime"));
+
+        TableColumn<OrderView, String> PStatusColumn = new TableColumn<>("Status");
+        PStatusColumn.setCellValueFactory(new PropertyValueFactory<>("PStatus"));
     
         // Spicy category
         TableColumn<OrderView, Integer> spicyColumn = new TableColumn<>("Spicy");
@@ -157,7 +195,7 @@ public class table_ordersController {
     
         notSpicyColumn.getColumns().addAll(notSpicyTunaMayoCountColumn, notSpicyBulgogiCountColumn, notSpicyChickenAdoboCountColumn);
     
-        tableViewOrder.getColumns().addAll(orderNumColumn, custNameColumn, orderDateColumn, orderTimeColumn);
+        tableViewOrder.getColumns().addAll(orderNumColumn, custNameColumn, orderDateColumn, orderTimeColumn, PStatusColumn);
     }
     
     
@@ -185,10 +223,11 @@ public class table_ordersController {
         private int notSpicyTunaMayoCount;
         private int notSpicyBulgogiCount;
         private int notSpicyChickenAdoboCount;
+        private String PStatus;
     
         public OrderView(int orderNum, String custName, String orderDate, String orderTime,
                          int spicyTunaMayoCount, int spicyBulgogiCount, int spicyChickenAdoboCount,
-                         int notSpicyTunaMayoCount, int notSpicyBulgogiCount, int notSpicyChickenAdoboCount) {
+                         int notSpicyTunaMayoCount, int notSpicyBulgogiCount, int notSpicyChickenAdoboCount, String PStatus) {
             this.orderNum = orderNum;
             this.custName = custName;
             this.orderDate = orderDate;
@@ -199,9 +238,19 @@ public class table_ordersController {
             this.notSpicyTunaMayoCount = notSpicyTunaMayoCount;
             this.notSpicyBulgogiCount = notSpicyBulgogiCount;
             this.notSpicyChickenAdoboCount = notSpicyChickenAdoboCount;
+            this.PStatus = PStatus;
         }
     
         // Getters
+
+        public String getPStatus() {
+            return PStatus;
+        }
+
+        public String setPStatus(String PStatus) {
+            return PStatus;
+        }
+
         public int getOrderNum() {
             return orderNum;
         }
@@ -268,6 +317,10 @@ public class table_ordersController {
     }
     
     
+
+    
 }
+
+
 
 
