@@ -22,5 +22,7 @@
       <Button fx:id="FreadyBtn" layoutX="286.0" layoutY="435.0" mnemonicParsing="false" onAction="#showReadyOrders" text="ready" />
       <Button fx:id="FdoneBtn" layoutX="369.0" layoutY="435.0" mnemonicParsing="false" onAction="#showDoneOrders" text="done" />
       <Button fx:id="FallBtn" layoutX="20.0" layoutY="435.0" mnemonicParsing="false" onAction="#showAll" text="All" />
+      <Text fx:id="ordersText" layoutX="28.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders" />
+      <Text layoutX="84.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders" />
    </children>
 </AnchorPane>

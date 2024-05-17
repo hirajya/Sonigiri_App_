@@ -177,6 +177,11 @@
                   <Button fx:id="CCalculateChangeButton" layoutX="305.0" layoutY="65.0" mnemonicParsing="false" onAction="#computeChange1" text="Calculate" />
                </children>
             </Pane>
+            <Text fx:id="errorMsg" fill="RED" layoutX="14.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unsufficient Funds / Forgot to input amount paid">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
       <Text layoutX="296.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="//">

@@ -14,6 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.SortType;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,6 +27,7 @@ import java.util.Map;
 import javafx.scene.control.TableCell;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
@@ -37,6 +40,9 @@ public class table_ordersController {
     @FXML
     Button add_order_btn;
 
+    // Font fontPoppinsBold = Font.loadFont("assets/fonts/Poppins-Bold.ttf", 45);
+    // Font fontPoppinsRegular = Font.loadFont("assets/fonts/Poppins-Regular.ttf", 45);
+
     @FXML
     Button FpendingBtn, FmakingBtn, FreadyBtn, FdoneBtn, FallBtn;
 
@@ -48,7 +54,7 @@ public class table_ordersController {
     private TableView<OrderView> tableViewOrder;
 
     @FXML
-    Text PendingOrdersCnt, MakingOrdersCnt, ReadyOrdersCnt, OrderClaimedCnt;
+    Text PendingOrdersCnt, MakingOrdersCnt, ReadyOrdersCnt, OrderClaimedCnt, ordersText;
     
 
     public void initialize() {
@@ -56,6 +62,8 @@ public class table_ordersController {
         setupTableView();
         addTableClickListener();
         updateHeaderCounterOrders();
+
+
     }
 
     private void fetchData() {
@@ -373,6 +381,9 @@ public class table_ordersController {
         notSpicyColumn.getColumns().addAll(notSpicyTunaMayoCountColumn, notSpicyBulgogiCountColumn, notSpicyChickenAdoboCountColumn);
 
         tableViewOrder.getColumns().addAll(orderNumColumn, custNameColumn, orderDateColumn, orderTimeColumn, PStatusColumn);
+
+        orderNumColumn.setSortType(SortType.DESCENDING);
+        tableViewOrder.getSortOrder().add(orderNumColumn);
     }
 
     

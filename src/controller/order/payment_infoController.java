@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import controller.mainController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -22,6 +24,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.order;
 import model.ordered_items;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class payment_infoController {
 
@@ -53,7 +58,7 @@ public class payment_infoController {
     Text amountPaidText;
 
     @FXML
-    Text changeText;
+    Text changeText, errorMsg;
 
     @FXML
     RadioButton GCash_RButton, Cash_RButton;
@@ -76,6 +81,7 @@ public class payment_infoController {
     private static final String DB_PASSWORD = "";
 
     public void initialize() throws SQLException {
+        errorMsg.setVisible(false);
         ordered_items.printOrderedItems(ordersList2);
         orderNumCurrent = getNextAvailableOrderNumber();
         GCashPane.setVisible(false);
@@ -150,6 +156,7 @@ public class payment_infoController {
         GCashPane.setVisible(false);
         CashPane.setVisible(true);
         changeText.setText("0.00 Php");
+        amountPaidText.setText("0.00 Php");
         
         selectPaymentMethod(); // Add this line to update paymentM
     }
@@ -245,14 +252,39 @@ public class payment_infoController {
         GCashPane.setVisible(false);
         CashPane.setVisible(true);
         changeText.setText("0.00 Php");
+        amountPaidText.setText("0.00 Php");
     }
 
     public void computeChange1() {
-        amountPaid = Double.parseDouble(CAmountPaidTextField.getText());    
-        amountPaidText.setText(String.valueOf(amountPaid) + "0 Php");
-        change = amountPaid - totalAmount;
-        changeText.setText(String.valueOf(change) + "0 Php");
+    String amountPaidStr = CAmountPaidTextField.getText();
+    if (amountPaidStr.isEmpty()) {
+        // Display error alert for missing amount paid
+        showAlert(AlertType.ERROR, "Error", "Missing Amount Paid", "Please enter the amount paid.");
+        return;
     }
+    
+    amountPaid = Double.parseDouble(amountPaidStr);
+    if (amountPaid < totalAmount) {
+        // Display error alert for insufficient payment
+        showAlert(AlertType.ERROR, "Error", "Insufficient Payment", "Amount paid must be greater than or equal to the total amount.");
+        return;
+    }
+    
+    amountPaidText.setText(String.valueOf(amountPaid) + "0 Php");
+    change = amountPaid - totalAmount;
+    changeText.setText(String.valueOf(change) + "0 Php");
+    
+    // Enable the "Done" button only if the payment is sufficient
+    done_orders_btn.setDisable(false);
+}
+
+private void showAlert(AlertType type, String title, String header, String content) {
+    Alert alert = new Alert(type);
+    alert.setTitle(title);
+    alert.setHeaderText(header);
+    alert.setContentText(content);
+    alert.showAndWait();
+}
 
     public void setCustNameNote() {
         custNameText.setText(custName);
@@ -273,6 +305,12 @@ public class payment_infoController {
 
 
     public void toTable() throws ClassNotFoundException, SQLException {
+
+        if (amountPaid < totalAmount) {
+            errorMsg.setVisible(true);
+            return;
+        }
+
         saveData();
         saveDataOrder();
         try {
