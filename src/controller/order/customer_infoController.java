@@ -1,6 +1,10 @@
 package controller.order;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -43,20 +47,56 @@ public class customer_infoController {
     Button backButton1;
 
     static ArrayList<ordered_items> ordersListl;
-    static int orderNumCurrent = Integer.parseInt(order.getOrderNumCount()) + 1;
+    static int orderNumCurrent;
     static String custName;
     static String custNote;
+
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/sonigiri_database";
+    private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "";
 
 
 
     @FXML
     public void initialize() throws SQLException {
         ordered_items.printOrderedItems(ordersListl);
+        orderNumCurrent = getNextAvailableOrderNumber();
         noSideRectangles();
         refreshTableOrder();
         setNumOniText();
         setTotalAmountText();
         setOrderNumText();
+    }
+
+    private int getNextAvailableOrderNumber() {
+        int nextOrderNumber = Integer.parseInt(order.getOrderNumCount()) + 1;
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            String query = "SELECT order_NumOrder FROM order_table ORDER BY order_NumOrder";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            int expectedOrderNumber = 1;
+
+            while (resultSet.next()) {
+                int currentOrderNumber = resultSet.getInt("order_NumOrder");
+
+                if (currentOrderNumber != expectedOrderNumber) {
+                    nextOrderNumber = expectedOrderNumber;
+                    break;
+                }
+                expectedOrderNumber++;
+            }
+
+            if (nextOrderNumber == expectedOrderNumber) {
+                nextOrderNumber = expectedOrderNumber;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return nextOrderNumber;
     }
 
     public void refreshTableOrder() throws SQLException {

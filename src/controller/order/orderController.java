@@ -16,6 +16,10 @@ import model.order;
 import model.ordered_items;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import controller.mainController;
@@ -47,6 +51,10 @@ public class orderController {
     @FXML
     Pane orderPane, orderSumPane;
 
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/sonigiri_database";
+    private static final String DB_USERNAME = "root";
+    private static final String DB_PASSWORD = "";
+
     private mainController mainController;
 
     
@@ -54,14 +62,16 @@ public class orderController {
     static String orderSelected;
     static String isSpicySelected;
     static int product_idSelected;
-    static int orderNumCurrent = Integer.parseInt(order.getOrderNumCount()) + 1;
+    static int orderNumCurrent;
     static double totalAmount = 0.0;
     static int numberOfOnigiri = 0; 
 
     @FXML
     public void initialize() throws IOException {
         noSideRectangles();
+        orderNumCurrent = getNextAvailableOrderNumber();
         setOrderNumText();
+        orders.clear();
         try {
             refreshTable(); // Call this method to populate the orderCard VBox with the updated data
             setNumOniText();
@@ -71,6 +81,40 @@ public class orderController {
         }
         
     }
+
+    private int getNextAvailableOrderNumber() {
+        int nextOrderNumber = Integer.parseInt(order.getOrderNumCount()) + 1;
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            String query = "SELECT order_NumOrder FROM order_table ORDER BY order_NumOrder";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            int expectedOrderNumber = 1;
+
+            while (resultSet.next()) {
+                int currentOrderNumber = resultSet.getInt("order_NumOrder");
+
+                if (currentOrderNumber != expectedOrderNumber) {
+                    nextOrderNumber = expectedOrderNumber;
+                    break;
+                }
+                expectedOrderNumber++;
+            }
+
+            if (nextOrderNumber == expectedOrderNumber) {
+                nextOrderNumber = expectedOrderNumber;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return nextOrderNumber;
+    }
+
+    
+
 
     public void setMainController(mainController mainController) {
         this.mainController = mainController;
@@ -93,7 +137,7 @@ public class orderController {
         for (ordered_items order : orders) {
             totalAmount += ordered_items.findProductPriceSimple(order.getProduct_id()) * order.getQuantity();
         }
-        totalAmountText.setText(totalAmount + "0 PHP");
+        totalAmountText.setText(totalAmount + "0 Php");
     }
 
     public void selectFlavor() {
@@ -311,6 +355,8 @@ public class orderController {
             e.printStackTrace();
         }
     }
+
+
 
     public void noSideRectangles() {
         Rectangle clipRect = new Rectangle();

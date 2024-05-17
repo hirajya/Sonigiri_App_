@@ -18,14 +18,16 @@ public class order {
     private double total_amt;
     private double amnt_paid;
     private String order_status;
+    private String cust_note;
 
-    public order(int order_NumOrder, String order_custName, String order_MOP, double total_amt, double amnt_paid, String order_status) {
+    public order(int order_NumOrder, String order_custName, String order_MOP, double total_amt, double amnt_paid, String order_status, String cust_note) {
         this.order_NumOrder = order_NumOrder;
         this.order_custName = order_custName;
         this.order_MOP = order_MOP;
         this.total_amt = total_amt;
         this.amnt_paid = amnt_paid;
         this.order_status = "Pending";
+        this.cust_note = cust_note;
     }
 
     public int getOrder_NumOrder() {
@@ -76,6 +78,14 @@ public class order {
         this.order_MOP = order_MOP;
     }
 
+    public String getCust_note() {
+        return cust_note;
+    }
+
+    public void setCust_note(String cust_note) {
+        this.cust_note = cust_note;
+    }
+
     public static void addOrder(order order) throws ClassNotFoundException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -92,14 +102,20 @@ public class order {
             System.err.println("Connected to database.");
 
             // Create a prepared statement to insert data
-            String sql = "INSERT INTO order_table (order_Date, order_Time, order_Status, order_CusName, order_MOP, order_Change, order_AmntPaid, order_Total, order_NumOrder) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO order_table (order_Date, order_Time, order_Status, order_CusName, order_MOP, order_Change, order_AmntPaid, order_Total, order_custNote, order_NumOrder) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
             
 
             LocalDate localDate = getCurrentDate();
             java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);            
             String currentTime = getCurrentTime();
-            double change = order.getTotal_amt() - order.getAmnt_paid();
+            double change;
+            if (order.getOrder_MOP().equals("GCash")) {
+                change = 0.0;
+            } else {
+                change = order.getAmnt_paid() - order.getTotal_amt();
+
+            }
 
             // Set values for the prepared statement
             preparedStatement.setDate(1, sqlDate); 
@@ -110,7 +126,8 @@ public class order {
             preparedStatement.setDouble(6, change);
             preparedStatement.setDouble(7, order.getAmnt_paid());
             preparedStatement.setDouble(8, order.getTotal_amt());
-            preparedStatement.setInt(9, order.getOrder_NumOrder());
+            preparedStatement.setString(9, order.getCust_note());
+            preparedStatement.setInt(10, order.getOrder_NumOrder());
 
             // Execute the update and check for success
             int rowsAffected = preparedStatement.executeUpdate();
@@ -222,8 +239,7 @@ public class order {
     
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        order order1 = new order(1, "John Doe",  "Cash", 100, 50,"Pending");
-        addOrder(order1);
+
         System.out.println(getOrderNumCount());    
         
     }
