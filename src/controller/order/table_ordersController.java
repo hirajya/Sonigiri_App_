@@ -41,12 +41,16 @@ public class table_ordersController {
 
     @FXML
     private TableView<OrderView> tableViewOrder;
+
+    @FXML
+    Text PendingOrdersCnt, MakingOrdersCnt, ReadyOrdersCnt, OrderClaimedCnt;
     
 
     public void initialize() {
         fetchData();
         setupTableView();
         addTableClickListener();
+        updateHeaderCounterOrders();
     }
 
     private void fetchData() {
@@ -128,6 +132,98 @@ public class table_ordersController {
             }
         });
     }
+
+    public int getPending() {
+        // Get the total count of pending orders
+        int pending = 0;
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT COUNT(order_NumOrder) AS pending " +
+                "FROM order_table " +
+                "WHERE order_Status = 'Pending'"
+            );
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                pending = resultSet.getInt("pending");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+    }
+
+    return pending;
+    }
+
+    public int getDone() {
+        // Get the total count of done orders
+        int done = 0;
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT COUNT(order_NumOrder) AS done " +
+                "FROM order_table " +
+                "WHERE order_Status = 'Done'"
+            );
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                done = resultSet.getInt("done");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return done;
+    }
+
+    public int getMaking() {
+        // Get the total count of making orders
+        int making = 0;
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT COUNT(order_NumOrder) AS making " +
+                "FROM order_table " +
+                "WHERE order_Status = 'Making'"
+            );
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                making = resultSet.getInt("making");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return making;
+    }
+
+    public int getReady() {
+        // Get the total count of ready orders
+        int ready = 0;
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT COUNT(order_NumOrder) AS ready " +
+                "FROM order_table " +
+                "WHERE order_Status = 'Ready'"
+            );
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                ready = resultSet.getInt("ready");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ready;
+    }
+
+    public void updateHeaderCounterOrders() {
+        // Update the header counter for orders
+        int pending = getPending();
+        int done = getDone();
+        int making = getMaking();
+        int ready = getReady();
+
+        PendingOrdersCnt.setText(String.valueOf(pending));
+        MakingOrdersCnt.setText(String.valueOf(making));
+        ReadyOrdersCnt.setText(String.valueOf(ready));
+        OrderClaimedCnt.setText(String.valueOf(done));
+    }
+
 
     private void toReceipt() {
         try {
