@@ -182,6 +182,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
+            <Button fx:id="discount10" layoutX="327.0" layoutY="349.0" mnemonicParsing="false" onAction="#applyDiscount10P" text="discount 10%" />
          </children>
       </Pane>
       <Text layoutX="296.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="//">

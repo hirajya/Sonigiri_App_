@@ -19,8 +19,9 @@ public class order {
     private double amnt_paid;
     private String order_status;
     private String cust_note;
+    private boolean discount10;
 
-    public order(int order_NumOrder, String order_custName, String order_MOP, double total_amt, double amnt_paid, String order_status, String cust_note) {
+    public order(int order_NumOrder, String order_custName, String order_MOP, double total_amt, double amnt_paid, String order_status, String cust_note, boolean discount10) {
         this.order_NumOrder = order_NumOrder;
         this.order_custName = order_custName;
         this.order_MOP = order_MOP;
@@ -28,6 +29,15 @@ public class order {
         this.amnt_paid = amnt_paid;
         this.order_status = "Pending";
         this.cust_note = cust_note;
+        this.discount10 = discount10;
+    }
+
+    public boolean isDiscount10() {
+        return discount10;
+    }
+
+    public void setDiscount10(boolean discount10) {
+        this.discount10 = discount10;
     }
 
     public int getOrder_NumOrder() {
@@ -102,7 +112,7 @@ public class order {
             System.err.println("Connected to database.");
 
             // Create a prepared statement to insert data
-            String sql = "INSERT INTO order_table (order_Date, order_Time, order_Status, order_CusName, order_MOP, order_Change, order_AmntPaid, order_Total, order_custNote, order_NumOrder) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO order_table (order_Date, order_Time, order_Status, order_CusName, order_MOP, order_Change, order_AmntPaid, order_Total, order_custNote, discount10Percent, order_NumOrder) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
             
 
@@ -127,7 +137,8 @@ public class order {
             preparedStatement.setDouble(7, order.getAmnt_paid());
             preparedStatement.setDouble(8, order.getTotal_amt());
             preparedStatement.setString(9, order.getCust_note());
-            preparedStatement.setInt(10, order.getOrder_NumOrder());
+            preparedStatement.setBoolean(10, order.isDiscount10());
+            preparedStatement.setInt(11, order.getOrder_NumOrder());
 
             // Execute the update and check for success
             int rowsAffected = preparedStatement.executeUpdate();

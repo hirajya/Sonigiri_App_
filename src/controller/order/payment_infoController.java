@@ -24,6 +24,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.order;
 import model.ordered_items;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -34,7 +37,7 @@ public class payment_infoController {
     Button done_orders_btn;
 
     @FXML
-    Button CCalculateChangeButton;
+    Button CCalculateChangeButton, discount10;
 
     @FXML
     TextField GCContactNum, GCContactName;
@@ -79,6 +82,8 @@ public class payment_infoController {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/sonigiri_database";
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "";
+
+    private boolean discountApplied = false;
 
     public void initialize() throws SQLException {
         errorMsg.setVisible(false);
@@ -125,6 +130,31 @@ public class payment_infoController {
         return nextOrderNumber;
     }
 
+    public void applyDiscount10P() {
+        if (!discountApplied) {
+            totalAmount = totalAmount - (totalAmount * 0.10);  // Apply 10% discount
+            // Round up to the nearest whole number
+            totalAmount = Math.ceil(totalAmount);
+            totalAmountText.setText(totalAmount + "0 Php");
+            amountPaidText.setText(totalAmount + "0 Php");
+            amountPaid = totalAmount;
+            discountApplied = true;
+        } else {
+            showAlert(AlertType.ERROR, "Error", "Discount Already Applied", "Discount has already been applied.");
+        }
+    }
+    
+    
+    
+    // private void showAlert2(Alert.AlertType type, String title, String header, String content) {
+    //     Alert alert = new Alert(type);
+    //     alert.setTitle(title);
+    //     alert.setHeaderText(header);
+    //     alert.setContentText(content);
+    //     alert.showAndWait();
+    // }
+    
+
     public void selectPaymentMethod() {
         if (GCash_RButton.isSelected()) {
             paymentM = "GCash";
@@ -146,7 +176,8 @@ public class payment_infoController {
         CashPane.setVisible(false);
     
         changeText.setText("0.00 Php");
-        setTotalAmountText();
+        totalAmountText.setText(totalAmount + "0 PHP");
+        // setTotalAmountText();
         amountPaidText.setText(String.valueOf(totalAmount) + "0 Php");
         
         selectPaymentMethod(); // Add this line to update paymentM
@@ -299,7 +330,8 @@ private void showAlert(AlertType type, String title, String header, String conte
 
     public void saveData() throws ClassNotFoundException, SQLException {
         paymentM = paymentMText.getText();
-        order order1 = new order(orderNumCurrent, custName, paymentM, totalAmount, amountPaid, "Pending", custNote);
+        System.out.println(totalAmount);
+        order order1 = new order(orderNumCurrent, custName, paymentM, totalAmount, amountPaid, "Pending", custNote, discountApplied);
         order.addOrder(order1);
     }
 

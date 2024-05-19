@@ -50,7 +50,7 @@ public class receipt_Controller {
     VBox orderCard;
 
     @FXML
-    private Text orderNumText, custNameText, numOniText, totalAmountText, amountPaidText, paymentMText, changeText, custNoteText;
+    private Text orderNumText, custNameText, numOniText, totalAmountText, amountPaidText, paymentMText, changeText, custNoteText, discount10PercentText;
 
     static int orderNum;
 
@@ -89,6 +89,7 @@ public class receipt_Controller {
     public void updateDetailsOrder() throws SQLException {
         // Fetch and display order details using the orderNum
         fetchDataOrder();
+        fetchTotalAmount();
 
         // count qty 
         qty = 0;
@@ -256,7 +257,6 @@ public class receipt_Controller {
     
     public void fetchDataOrder() {
         // Fetch ordered items from the database
-        int sum = 0;
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                 "SELECT * FROM ordered_items WHERE order_NumOrder = ?"
@@ -268,12 +268,28 @@ public class receipt_Controller {
                 int productID = resultSet.getInt("product_id");
                 int quantity = resultSet.getInt("qty");
                 String isSpicy = resultSet.getString("isSpicy");
-                int total = resultSet.getInt("total_amt");
-                sum += total;
                 ordered_items order = new ordered_items(orderNum, productID, isSpicy, quantity);
                 orders.add(order);
             }
-            totalAmountText.setText(String.valueOf(sum) + ".00 PHP");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void fetchTotalAmount() {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT * FROM order_table WHERE order_NumOrder = ?"
+            );
+            preparedStatement.setInt(1, orderNum);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int orderTotal = resultSet.getInt("order_Total");
+                boolean discount = resultSet.getBoolean("discount10Percent");
+                totalAmountText.setText(String.valueOf(orderTotal) + ".00 PHP");
+                discount10PercentText.setText(discount ? "10% Discount" : "No Discount");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -284,7 +300,7 @@ public class receipt_Controller {
         // Fetch user info from the database
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             PreparedStatement preparedStatement = connection.prepareStatement(
-                "SELECT order_CusName, order_NumOrder, order_Date, order_Time, order_Status, order_custNote, order_MOP, order_Change, order_AmntPaid " +
+                "SELECT order_CusName, order_NumOrder, order_Date, order_Time, order_Status, order_custNote, order_MOP, order_Change, order_AmntPaid, discount10Percent " +
                 "FROM order_table " +
                 "WHERE order_NumOrder = ?"
             );
@@ -299,6 +315,7 @@ public class receipt_Controller {
                 String paymentMethod = resultSet.getString("order_MOP");
                 double change = resultSet.getDouble("order_Change");
                 double amountPaid = resultSet.getDouble("order_AmntPaid");
+                double discount = resultSet.getDouble("discount10Percent");
                 // Set the user info to the text fields
                 custNameText.setText(buyerName);
                 dateText.setText(orderDate);
@@ -307,6 +324,7 @@ public class receipt_Controller {
                 paymentMText.setText(paymentMethod);
                 changeText.setText(String.valueOf(change) + "0 PHP");
                 amountPaidText.setText(String.valueOf(amountPaid) + "0 PHP");
+                discount10PercentText.setText(String.valueOf(discount) + "0 PHP");
                 // Set the status tracker image based on the order status
                 // if (orderStatus.equals("Pending")) {
                 //     statusTrackerImage.setImage(null);
