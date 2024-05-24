@@ -134,11 +134,26 @@ public class orderController {
 
     public void setTotalAmountText() throws SQLException {
         totalAmount = 0.0;
+        int onigiriCount = 0;
+    
+        // Calculate total amount with discount
         for (ordered_items order : orders) {
-            totalAmount += ordered_items.findProductPriceSimple(order.getProduct_id()) * order.getQuantity();
+            double price = ordered_items.findProductPriceSimple(order.getProduct_id());
+            int quantity = order.getQuantity();
+            
+            for (int i = 1; i <= quantity; i++) {
+                onigiriCount++;
+                if (onigiriCount % 4 == 0) {
+                    // Apply 50% discount for every 4th onigiri
+                    totalAmount += price * 0.5;
+                } else {
+                    totalAmount += price;
+                }
+            }
         }
-        totalAmountText.setText(totalAmount + "0 Php");
+        totalAmountText.setText(String.format("%.2f Php", totalAmount));
     }
+    
 
     public void selectFlavor() {
         if (tnmyo_RButton.isSelected()) {
@@ -267,9 +282,9 @@ public class orderController {
         orders.add(order);
         
         try {
+            setTotalAmountText();
             addOrderCard(order);
             setNumOniText();
-            setTotalAmountText();
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }

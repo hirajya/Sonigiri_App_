@@ -172,7 +172,6 @@ public class payment_infoController {
         GCContactName.clear();
         GCContactNum.clear();
         
-        GCashPane.setVisible(true);
         CashPane.setVisible(false);
     
         changeText.setText("0.00 Php");
