@@ -283,6 +283,49 @@ public class ordered_items {
         System.out.println("==========END OF ORDERED ITEMS==========");
     }
 
+    public static int getSoldCountForProduct(String productName) throws SQLException {
+        int soldCount = 0;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Establish database connection
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sonigiri_database", "root", "");
+
+            // SQL query to get the sold count for a specific product in completed orders
+            String query = "SELECT SUM(ordered_items.qty) AS sold_count FROM ordered_items " +
+                           "INNER JOIN order_table ON ordered_items.order_NumOrder = order_table.order_NumOrder " +
+                           "INNER JOIN product ON ordered_items.product_id = product.product_id " +
+                           "WHERE product.product_name = ? AND order_table.order_Status = 'Done'";
+
+            // Create the prepared statement
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, productName);
+
+            // Execute the query
+            resultSet = preparedStatement.executeQuery();
+
+            // Process the result set
+            if (resultSet.next()) {
+                soldCount = resultSet.getInt("sold_count");
+            }
+        } finally {
+            // Close resources
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+        return soldCount;
+    }
+
     public static void main(String[] args) throws ClassNotFoundException {
         ordered_items orderItem = new ordered_items(1, 1, "false", 2);
         addOrder(orderItem);

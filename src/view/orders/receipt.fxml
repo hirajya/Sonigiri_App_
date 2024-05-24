@@ -13,47 +13,47 @@
    <children>
       <Pane fx:id="orderSumPane" layoutX="487.0" layoutY="23.0" prefHeight="425.0" prefWidth="221.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Text layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Summary">
+            <Text fill="#004003" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Summary">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order No.">
+            <Text fill="#004003" layoutX="10.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order No.">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name">
+            <Text fill="#004003" layoutX="10.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders">
+            <Text fill="#004003" layoutX="10.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Note">
+            <Text fill="#004003" layoutX="10.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Note">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Onigiris">
+            <Text fill="#004003" layoutX="10.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Onigiris">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount">
+            <Text fill="#004003" layoutX="10.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Paid">
+            <Text fill="#004003" layoutX="10.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Paid">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Method">
+            <Text fill="#004003" layoutX="10.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Method">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
@@ -83,7 +83,7 @@
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change">
+            <Text fill="#004003" layoutX="10.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
@@ -126,17 +126,17 @@
       </Text>
       <Pane layoutX="28.0" layoutY="122.0" prefHeight="163.0" prefWidth="438.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Text layoutX="15.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+            <Text fill="#004003" layoutX="15.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Text>
-            <Text layoutX="15.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
+            <Text fill="#004003" layoutX="15.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Text>
-            <Text layoutX="15.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Status">
+            <Text fill="#004003" layoutX="15.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Status">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -156,5 +156,15 @@
       </Pane>
       <Button fx:id="cancelOrderButton" layoutX="28.0" layoutY="82.0" mnemonicParsing="false" onAction="#handleCancelOrderButton" text="Cancel Order" />
       <Button fx:id="progressButton" layoutX="365.0" layoutY="299.0" mnemonicParsing="false" onAction="#progressMethod" text="Mark as Making" />
+      <Text fill="#004003" layoutX="36.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount:">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Text>
+      <Text fx:id="discount10PercentText" layoutX="36.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount:">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

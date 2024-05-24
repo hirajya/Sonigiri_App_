@@ -19,8 +19,9 @@ public class order {
     private double amnt_paid;
     private String order_status;
     private String cust_note;
+    private boolean discount10;
 
-    public order(int order_NumOrder, String order_custName, String order_MOP, double total_amt, double amnt_paid, String order_status, String cust_note) {
+    public order(int order_NumOrder, String order_custName, String order_MOP, double total_amt, double amnt_paid, String order_status, String cust_note, boolean discount10) {
         this.order_NumOrder = order_NumOrder;
         this.order_custName = order_custName;
         this.order_MOP = order_MOP;
@@ -28,6 +29,15 @@ public class order {
         this.amnt_paid = amnt_paid;
         this.order_status = "Pending";
         this.cust_note = cust_note;
+        this.discount10 = discount10;
+    }
+
+    public boolean isDiscount10() {
+        return discount10;
+    }
+
+    public void setDiscount10(boolean discount10) {
+        this.discount10 = discount10;
     }
 
     public int getOrder_NumOrder() {
@@ -102,7 +112,7 @@ public class order {
             System.err.println("Connected to database.");
 
             // Create a prepared statement to insert data
-            String sql = "INSERT INTO order_table (order_Date, order_Time, order_Status, order_CusName, order_MOP, order_Change, order_AmntPaid, order_Total, order_custNote, order_NumOrder) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO order_table (order_Date, order_Time, order_Status, order_CusName, order_MOP, order_Change, order_AmntPaid, order_Total, order_custNote, discount10Percent, order_NumOrder) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
             
 
@@ -127,7 +137,8 @@ public class order {
             preparedStatement.setDouble(7, order.getAmnt_paid());
             preparedStatement.setDouble(8, order.getTotal_amt());
             preparedStatement.setString(9, order.getCust_note());
-            preparedStatement.setInt(10, order.getOrder_NumOrder());
+            preparedStatement.setBoolean(10, order.isDiscount10());
+            preparedStatement.setInt(11, order.getOrder_NumOrder());
 
             // Execute the update and check for success
             int rowsAffected = preparedStatement.executeUpdate();
@@ -236,6 +247,88 @@ public class order {
         // This line is unreachable because a return statement is already inside the try block
         // return String.valueOf(resultSet.getInt("COUNT(order_NumOrder)")); 
     }
+
+    public static int getTotalSoldCount() throws SQLException {
+        int totalSoldCount = 0;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Establish database connection
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sonigiri_database", "root", "");
+
+            // SQL query to get the total sold count for completed orders
+            String query = "SELECT SUM(qty) AS total_sold FROM ordered_items " +
+                           "INNER JOIN order_table ON ordered_items.order_NumOrder = order_table.order_NumOrder " +
+                           "WHERE order_table.order_Status = 'Done'";
+
+            // Create the prepared statement
+            preparedStatement = connection.prepareStatement(query);
+
+            // Execute the query
+            resultSet = preparedStatement.executeQuery();
+
+            // Process the result set
+            if (resultSet.next()) {
+                totalSoldCount = resultSet.getInt("total_sold");
+            }
+        } finally {
+            // Close resources
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+        return totalSoldCount;
+    }
+
+    public static double getTotalEarnings() throws SQLException {
+        double totalEarnings = 0.0;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Establish database connection
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sonigiri_database", "root", "");
+
+            // SQL query to get the total earnings from completed orders
+            String query = "SELECT SUM(order_table.order_Total) AS total_earnings FROM order_table " +
+                           "WHERE order_table.order_Status = 'Done'";
+
+            // Create the prepared statement
+            preparedStatement = connection.prepareStatement(query);
+
+            // Execute the query
+            resultSet = preparedStatement.executeQuery();
+
+            // Process the result set
+            if (resultSet.next()) {
+                totalEarnings = resultSet.getDouble("total_earnings");
+            }
+        } finally {
+            // Close resources
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+        return totalEarnings;
+    }
+
     
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {

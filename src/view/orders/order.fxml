@@ -29,7 +29,7 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></RadioButton>
-            <Text layoutX="27.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Order">
+            <Text fill="#004003" layoutX="27.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Order">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -82,47 +82,47 @@
       <Pane fx:id="orderSumPane" layoutX="487.0" layoutY="23.0" prefHeight="425.0" prefWidth="221.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <Button fx:id="order_out_btn" layoutX="119.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleConfirmOrderButtonMet" prefHeight="24.0" prefWidth="65.0" text="Next" />
-            <Text layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Summary">
+            <Text fill="#004003" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Summary">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order No.">
+            <Text fill="#004003" layoutX="10.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order No.">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name">
+            <Text fill="#004003" layoutX="10.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders">
+            <Text fill="#004003" layoutX="10.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Note">
+            <Text fill="#004003" layoutX="10.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Note">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Onigiris">
+            <Text fill="#004003" layoutX="10.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Onigiris">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount">
+            <Text fill="#004003" layoutX="10.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Paid">
+            <Text fill="#004003" layoutX="10.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Paid">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Method">
+            <Text fill="#004003" layoutX="10.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Method">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
@@ -152,7 +152,7 @@
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change">
+            <Text fill="#004003" layoutX="10.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>

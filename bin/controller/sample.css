@@ -1,0 +1,4 @@
+.highlighted {
+    -fx-background-color: #487E4A; /* Light Blue or any color you prefer */
+    -fx-text-fill: white; /* White text color */
+}

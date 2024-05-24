@@ -5,7 +5,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -13,13 +12,6 @@
    <left>
       <AnchorPane prefHeight="493.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutY="186.0" prefHeight="137.0" prefWidth="131.0">
-               <children>
-                  <Button fx:id="analytics_btn" mnemonicParsing="false" onAction="#handleAnalyticsButton" prefHeight="32.0" prefWidth="128.0" text="Dashboard" />
-                  <Button fx:id="order_btn" mnemonicParsing="false" onAction="#handleOrderButton" prefHeight="35.0" prefWidth="128.0" text="Orders" />
-                  <Button fx:id="earnings_btn" mnemonicParsing="false" onAction="#handleEarningsButton" prefHeight="36.0" prefWidth="128.0" text="Earnings" />
-               </children>
-            </VBox>
             <Text fx:id="dateTextMain" layoutX="26.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                <font>
                   <Font size="10.0" />
@@ -30,6 +22,19 @@
                   <Font size="10.0" />
                </font>
             </Text>
+            <Button fx:id="analytics_btn" layoutX="9.0" layoutY="129.0" mnemonicParsing="false" onAction="#handleAnalyticsButton" prefHeight="32.0" prefWidth="83.0" stylesheets="@../controller/sample.css" text="Dashboard" />
+            <Button fx:id="order_btn" layoutX="9.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleOrderButton" prefHeight="35.0" prefWidth="83.0" stylesheets="@../controller/sample.css" text="Orders" />
+            <Button fx:id="earnings_btn" layoutX="9.0" layoutY="219.0" mnemonicParsing="false" onAction="#handleEarningsButton" prefHeight="36.0" prefWidth="83.0" stylesheets="@../controller/sample.css" text="Earnings" />
+            <ImageView fitHeight="16.0" fitWidth="81.0" layoutX="31.0" layoutY="463.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/main/Logolandscape.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="46.0" fitWidth="104.0" layoutX="7.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/main/delight%20in%20every%20bite.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </left>
@@ -39,14 +44,19 @@
    <top>
       <AnchorPane prefHeight="48.0" prefWidth="866.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/main/charm_clover.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="55.0" layoutX="56.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="26.0" fitWidth="55.0" layoutX="56.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/main/Giri..png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="33.0" layoutX="820.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/main/SonigiriCircleIcon.png" />
                </image>
             </ImageView>
          </children></AnchorPane>

@@ -42,6 +42,9 @@ public class mainController {
     public void initialize() throws IOException {
         mainPane.setUserData(this);
         loadView("/view/orders/table_orders.fxml");
+        highlightButton(order_btn);
+        dateTextMain.setVisible(false);
+        timeTextMain.setVisible(false);
         // updateTime();
 
     }
@@ -50,6 +53,7 @@ public class mainController {
         System.out.println("Order Button Clicked");
         try {
             loadView("/view/orders/table_orders.fxml");
+            highlightButton(order_btn);
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -60,6 +64,7 @@ public class mainController {
         System.out.println("Analytics Button Clicked");
         try {
             loadView("/view/dashboard/analytics.fxml");
+            highlightButton(analytics_btn);
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -70,6 +75,7 @@ public class mainController {
         System.out.println("Done Orders Button Clicked");
         try {
             loadView("/view/earnings/earnings.fxml");
+            highlightButton(earnings_btn);
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -96,6 +102,16 @@ public class mainController {
 
     public void setOrderNum(int orderNum) {
         this.orderNum = orderNum;
+    }
+
+    private void highlightButton(Button buttonToHighlight) {
+        // Remove highlight from all buttons
+        order_btn.getStyleClass().remove("highlighted");
+        analytics_btn.getStyleClass().remove("highlighted");
+        earnings_btn.getStyleClass().remove("highlighted");
+
+        // Add highlight to the selected button
+        buttonToHighlight.getStyleClass().add("highlighted");
     }
 
     // private void updateTime() {

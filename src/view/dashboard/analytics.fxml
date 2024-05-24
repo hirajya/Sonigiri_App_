@@ -3,9 +3,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="474.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="474.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.analytics.analyticsController">
    <children>
-      <Text layoutX="283.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Analytics" />
+      <Text layoutX="283.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Analytics" />
+      <Text layoutX="28.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Sold:" />
+      <Text fx:id="totalSoldLabel" layoutX="190.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text layoutX="28.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bulgogi Sold:" />
+      <Text fx:id="bulgogiSoldLabel" layoutX="190.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text layoutX="28.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tuna Mayo Sold:" />
+      <Text fx:id="tunaMayoSoldLabel" layoutX="190.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text layoutX="28.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adobo Sold:" />
+      <Text fx:id="adoboSoldLabel" layoutX="190.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="totalSalesLabel" layoutX="30.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Sales:" />
+      <Text fx:id="totalSalesLabel" layoutX="190.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>
