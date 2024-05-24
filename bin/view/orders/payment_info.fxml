@@ -15,47 +15,47 @@
    <children>
       <Pane fx:id="orderSumPane" layoutX="487.0" layoutY="23.0" prefHeight="425.0" prefWidth="221.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Text layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Summary">
+            <Text fill="#004003" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Summary">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order No.">
+            <Text fill="#004003" layoutX="10.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order No.">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name">
+            <Text fill="#004003" layoutX="10.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders">
+            <Text fill="#004003" layoutX="10.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Orders">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Note">
+            <Text fill="#004003" layoutX="10.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Note">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Onigiris">
+            <Text fill="#004003" layoutX="10.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Onigiris">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount">
+            <Text fill="#004003" layoutX="10.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Paid">
+            <Text fill="#004003" layoutX="10.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Paid">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Method">
+            <Text fill="#004003" layoutX="10.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Method">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
@@ -85,7 +85,7 @@
                   <Font size="11.0" />
                </font>
             </Text>
-            <Text layoutX="10.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change">
+            <Text fill="#004003" layoutX="10.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>
@@ -125,7 +125,7 @@
       <Text layoutX="214.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Info" />
       <Pane fx:id="paymentInfoPane" layoutX="22.0" layoutY="62.0" prefHeight="386.0" prefWidth="449.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Text layoutX="27.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Information">
+            <Text fill="#004003" layoutX="27.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment Information">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
