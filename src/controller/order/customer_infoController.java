@@ -208,10 +208,33 @@ public class customer_infoController {
 
     public void setTotalAmountText() throws SQLException {
         double totalAmount = 0.0;
+        int onigiriCount = 0;
+        int discountCount = 0; // Count for every 4th onigiri
+    
+        // Calculate total amount with discount
         for (ordered_items order : ordersListl) {
-            totalAmount += ordered_items.findProductPriceSimple(order.getProduct_id()) * order.getQuantity();
+            double price = ordered_items.findProductPriceSimple(order.getProduct_id());
+            int quantity = order.getQuantity();
+    
+            for (int i = 1; i <= quantity; i++) {
+                onigiriCount++;
+                if (onigiriCount % 4 == 0) {
+                    // Apply 50% discount for every 4th onigiri
+                    totalAmount += price * 0.5;
+                    discountCount++; // Increment discount count
+                } else {
+                    totalAmount += price;
+                }
+            }
         }
-        totalAmountText.setText(totalAmount + "0 PHP");
+    
+        // If there are any discounted onigiri, subtract the total discount amount
+        totalAmount -= (discountCount / 4) * (ordered_items.findProductPriceSimple(1) * 0.5);
+    
+        // Round up the total amount to the nearest integer value
+        totalAmount = Math.ceil(totalAmount);
+    
+        totalAmountText.setText(String.format("%.0f Php", totalAmount)); // Display as integer value
     }
 
     public static void main(String[] args) {

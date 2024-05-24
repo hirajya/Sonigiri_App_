@@ -161,12 +161,16 @@ public class payment_infoController {
             paymentMText.setText("GCash");
             amountPaidText.setText(String.valueOf(totalAmount) + "0 Php");
             amountPaid = totalAmount;
+            // Disable the "Done" button until change is calculated
+            done_orders_btn.setDisable(false);
         } else if (Cash_RButton.isSelected()) {
             paymentM = "Cash";
             paymentMText.setText("Cash");
-
+            // Disable the "Done" button until change is calculated
+            done_orders_btn.setDisable(true);
         }
     }
+    
 
     public void handleGCashRadioButton1() throws SQLException {
         GCContactName.clear();
@@ -235,10 +239,33 @@ public class payment_infoController {
 
     public void setTotalAmountText() throws SQLException {
         totalAmount = 0.0;
+        int onigiriCount = 0;
+        int discountCount = 0; // Count for every 4th onigiri
+    
+        // Calculate total amount with discount
         for (ordered_items order : ordersList2) {
-            totalAmount += ordered_items.findProductPriceSimple(order.getProduct_id()) * order.getQuantity();
+            double price = ordered_items.findProductPriceSimple(order.getProduct_id());
+            int quantity = order.getQuantity();
+    
+            for (int i = 1; i <= quantity; i++) {
+                onigiriCount++;
+                if (onigiriCount % 4 == 0) {
+                    // Apply 50% discount for every 4th onigiri
+                    totalAmount += price * 0.5;
+                    discountCount++; // Increment discount count
+                } else {
+                    totalAmount += price;
+                }
+            }
         }
-        totalAmountText.setText(totalAmount + "0 PHP");
+    
+        // If there are any discounted onigiri, subtract the total discount amount
+        totalAmount -= (discountCount / 4) * (ordered_items.findProductPriceSimple(1) * 0.5);
+    
+        // Round up the total amount to the nearest integer value
+        totalAmount = Math.ceil(totalAmount);
+    
+        totalAmountText.setText(String.format("%.0f Php", totalAmount)); // Display as integer value
     }
 
     public void refreshTableOrder() throws SQLException {
@@ -286,12 +313,33 @@ public class payment_infoController {
     }
 
     public void computeChange1() {
-    String amountPaidStr = CAmountPaidTextField.getText();
-    if (amountPaidStr.isEmpty()) {
-        // Display error alert for missing amount paid
-        showAlert(AlertType.ERROR, "Error", "Missing Amount Paid", "Please enter the amount paid.");
-        return;
-    }
+        if (!GCash_RButton.isSelected() && !Cash_RButton.isSelected()) {
+            // Display error alert for missing payment method selection
+            showAlert(AlertType.ERROR, "Error", "Missing Payment Method", "Please select a payment method before calculating change.");
+            return;
+        }
+    
+        String amountPaidStr = CAmountPaidTextField.getText();
+        if (amountPaidStr.isEmpty()) {
+            // Display error alert for missing amount paid
+            showAlert(AlertType.ERROR, "Error", "Missing Amount Paid", "Please enter the amount paid.");
+            return;
+        }
+        
+        amountPaid = Double.parseDouble(amountPaidStr);
+        if (amountPaid < totalAmount) {
+            // Display error alert for insufficient payment
+            showAlert(AlertType.ERROR, "Error", "Insufficient Payment", "Amount paid must be greater than or equal to the total amount.");
+            return;
+        }
+        
+        amountPaidText.setText(String.valueOf(amountPaid) + "0 Php");
+        change = amountPaid - totalAmount;
+        changeText.setText(String.valueOf(change) + "0 Php");
+        
+        // Enable the "Done" button only if the payment is sufficient
+        done_orders_btn.setDisable(false);
+    
     
     amountPaid = Double.parseDouble(amountPaidStr);
     if (amountPaid < totalAmount) {
@@ -307,6 +355,8 @@ public class payment_infoController {
     // Enable the "Done" button only if the payment is sufficient
     done_orders_btn.setDisable(false);
 }
+
+
 
 private void showAlert(AlertType type, String title, String header, String content) {
     Alert alert = new Alert(type);

@@ -24,22 +24,19 @@ public class orderCardController {
     
         productNameText.setText(ordered_items.getProduct_name(order_sample.getProduct_id()));
         qtyText.setText(String.valueOf(order_sample.getQuantity()) + "x");
-        
+    
         // Calculate the total price with the discount logic
         double price = ordered_items.findProductPriceSimple(order_sample.getProduct_id());
         int quantity = order_sample.getQuantity();
         double totalPrice = 0.0;
+        int discountedOnigiriCount = quantity / 4; // Count of discounted onigiri
     
-        for (int i = 1; i <= quantity; i++) {
-            if (i % 4 == 0) {
-                totalPrice += price * 0.5; // 50% discount on every 4th onigiri
-            } else {
-                totalPrice += price;
-            }
-        }
+        // Calculate total price considering the discount
+        totalPrice = (quantity - discountedOnigiriCount) * price + discountedOnigiriCount * (price * 0.5);
     
         totalPriceText.setText(String.format("%.2f PHP", totalPrice));
     }
+    
     
     
 
